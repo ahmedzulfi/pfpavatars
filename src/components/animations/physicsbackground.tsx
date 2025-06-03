@@ -76,14 +76,14 @@ export default function FallingCircles({
     const floor = Bodies.rectangle(width / 2, height + 50, width, 100, {
       isStatic: true,
     });
- const leftWall = Bodies.rectangle(-50, height / 2, 100, height, {
-  isStatic: true,
-  render: { visible: false },
-});
-const rightWall = Bodies.rectangle(width + 50, height / 2, 100, height, {
-  isStatic: true,
-  render: { visible: false },
-});
+    const leftWall = Bodies.rectangle(-50, height / 2, 100, height, {
+      isStatic: true,
+      render: { visible: false },
+    });
+    const rightWall = Bodies.rectangle(width + 50, height / 2, 100, height, {
+      isStatic: true,
+      render: { visible: false },
+    });
 
     Composite.add(world, [floor, leftWall, rightWall]);
 
@@ -250,7 +250,7 @@ const rightWall = Bodies.rectangle(width + 50, height / 2, 100, height, {
       window.removeEventListener("resize", handleResize);
       Render.stop(render);
       Runner.stop(runner);
-      Matter.World.clear(world);
+      Matter.World.clear(world, false);
       Matter.Engine.clear(engine);
       if (render.canvas && render.canvas.remove) {
         render.canvas.remove();
