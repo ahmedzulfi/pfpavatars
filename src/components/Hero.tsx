@@ -1,37 +1,74 @@
-import { Upload } from "lucide-react";
 import React from "react";
-import ImageUploader from "./ImageUploader";
-import PhysicsBackground from "./animations/physicsbackground";
-import image1 from "../image/avatar1.jpg";
-function Hero() {
+import { Upload, Play, Sparkles } from "lucide-react";
+import Videointro from "./Videointro";
+import BlurText from "./animations/Blurtext";
+const Hero: React.FC = () => {
   return (
-    <section className="min-h-screen  flex items-center justify-center bg-black overflow-hidden">
-      <PhysicsBackground
-        circleCount={50}
-        circleColors={["#1b1b1b", "#1b1b1b"]}
-        circleRadiusRange={[20, 40]}
-        repelRadius={100}
-        repelForce={0.00000005}
-        dragEnabled={true}
-        circleImages={["",image1]}
-      />
-      <div className="container  relative z-10 mx-auto px-4 text-center">
-        <div className="max-w-4xl  mx-auto">
-          <div className="inline-flex items-center px-5 py-2 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-md border border-white/20 rounded-2xl text-xs font-medium text-gray-200 mb-7 hover:from-white/15 hover:to-white/10 transition-all duration-500 cursor-default group">
-            AI Image Generator
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-xl opacity-80 -z-10"></div>
+    <section className="relative w-full pt-30 overflow-hidden">
+      {/* Background with noise texture */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-beige-50 via-beige-100 to-beige-200"></div>
+        <div className="absolute inset-0 bg-gradient-radial from-white/60 via-transparent to-transparent"></div>
+      </div>
+
+      <div className="container  w-full mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-16 pb-16 md:pb-24 relative z-10">
+        <div className=" mx-auto text-center">
+          <div>
+            <span className="flex items-center justify-betweeen w-max mx-auto px-6 py-1.5 mb-6 text-sm font-medium rounded-full bg-white/50 bg-blur-md text-yellow-950">
+              <Sparkles className="h-4 w-4 me-2 text-yellow-700" />
+              <span> AI-Powered Avatar Generation</span>
+            </span>
           </div>
-          <h1 className="text-2xl mb-4 md:text-5xl leading-[0.9] ">
-            Build Perfect AI Avatars
+
+          <h1 className="text-5xl md:text-7xl font-bold text-dark-950 mb-6 leading-tight text-center">
+            <BlurText
+              text="Transform Your Photos"
+              delay={150}
+              direction="bottom"
+              className="justify-center"
+            />
+            <BlurText
+              text="Into Perfect Avatars"
+              delay={300}
+              direction="bottom"
+              className="bg-clip-text font-normal italic font-serif justify-center"
+            />
           </h1>
-          <p className="text-md text-gray-500 mb-16 max-w-2xl mx-auto leading-relaxed">
-            Transform any photo into cool avatars
+
+          <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+            Transform your photos into stunning professional avatars with our
+            advanced AI technology
           </p>
-          <ImageUploader />
+
+          <div className="max-w-xl mx-auto">
+            <div className="mt-6 text-center">
+              <p className="text-xs text-gray-500 mb-4"></p>
+              <button className="px-8 py-3 bg-gradient-to-b  from-[#fff1e480] to-[#7d6c5c]  shadow-[#7d6c5c]  text-white font-medium rounded-full shadow hover:shadow-md transition-all duration-300 hover:opacity-95">
+                Generate Avatars
+              </button>
+            </div>
+          </div>
+
+          <Videointro />
+
+          <div className="mt-7 flex items-center justify-center gap-8 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span>AI Powered</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <span>Instant Results</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+              <span>High Quality</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default Hero;
