@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main className="min-h-screen relative flex flex-col justify-between items-center bg-white text-background w-full font-[family-name:var(--font-geist-sans)]">
       <Backgroundgrad />
-      <div className="relative z-20 w-[66%]  h-full">
+      <div className="relative z-20 w-[1000px] max-w-[90%]  h-full">
         <Hero />
       </div>
     </main>

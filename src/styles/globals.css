@@ -28,3 +28,6 @@ canvas {
   background: transparent !important;
   outline: none;
 }
+::-webkit-scrollbar{
+  display: none;
+}

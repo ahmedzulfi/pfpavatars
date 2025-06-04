@@ -38,7 +38,7 @@ function Videointro() {
         }
       `}</style>
 
-      <div className="mt-16 max-w-4xl mx-auto">
+      <div className="md:mt-16 mt-8 max-w-4xl mx-auto">
         <div className="relative group animate-fade-in-up">
             
         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20 cursor-pointer">
