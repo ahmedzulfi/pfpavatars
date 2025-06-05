@@ -65,7 +65,7 @@ function RecentAvatars() {
     },
   ];
   return (
-    <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 bg-white/60 backdrop-blur-sm shadow-sm border-black/7 rounded-xl px-6 py-6">
+    <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 bg-white/60 backdrop-blur-sm shadow-xs border-black/7 rounded-xl md:px-6 px-3 py-6">
       <div className="flex flex-row items-center justify-between mb-6">
         <div>
           <div className="text-xl pb-1">Recent Avatar Generations</div>
@@ -76,7 +76,7 @@ function RecentAvatars() {
    
       </div>
       <div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {recentGenerations.map((generation) => (
             <div key={generation.id} className="group cursor-pointer">
               <div className="relative aspect-square mb-3 overflow-hidden rounded-lg">

@@ -4,8 +4,8 @@ import React from "react";
 
 function Userstats() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
-      <div className="bg-white/60 backdrop-blur-sm shadow-sm border-black/7 rounded-xl">
+    <div className="md:grid hidden grid-cols-1 md:grid-cols-3 gap-6 mb-4 ">
+      <div className="bg-white/60 backdrop-blur-sm shadow-xs border-black/7 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">
@@ -21,7 +21,7 @@ function Userstats() {
         </div>
       </div>
 
-      <div className="bg-white/60 backdrop-blur-sm shadow-sm border-black/7 rounded-xl">
+      <div className="bg-white/60 backdrop-blur-sm shadow-xs border-black/7 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">
@@ -44,7 +44,7 @@ function Userstats() {
         </div>
       </div>
 
-      <div className="bg-white/60 backdrop-blur-sm shadow-sm border-black/7 rounded-xl">
+      <div className="bg-white/60 backdrop-blur-sm shadow-xs border-black/7 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">

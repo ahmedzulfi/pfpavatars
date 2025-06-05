@@ -1,5 +1,6 @@
 "use client";
 
+import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
 import Backgroundgrad from "@/components/Backgroundgrad";
 import { Check, Coins, ArrowLeft, Sparkles, Zap, Crown } from "lucide-react";
 import Link from "next/link";
@@ -55,34 +56,35 @@ export default function Pricing() {
   ];
 
   return (
+    <PageTransitionWrapper>
     <main className=" min-h-screen  relative flex flex-col justify-center items-center bg-white text-background w-full font-[family-name:var(--font-geist-sans)]">
       <Backgroundgrad />
-      <div className="relative z-20 w-[66%]  h-screen ">
-        <section className="relative pt-30  h-[80%] overflow-visible ">
-          <div className="container mx-auto px-2 sm:px-6 lg:px-8 pt-10 md:pt-16 pb-16 md:pb-24 relative z-10  h-full backdrop-blur-sm bg-white/25 rounded-4xl">
-            <div className="mx-auto max-w-6xl">
+      <div className="relative z-20 w-full flex justify-center  backdrop-blur-sm   h-full ">
+        <section className="relative pt-25 w-[1270px] max-w-[90%] h-full  overflow-visible ">
+          <div className="container  mx-auto px-2 sm:px-6 lg:px-0 pt-10 md:pt-16 pb-16 md:pb-24 relative z-10  h-full  rounded-4xl">
+            <div className="w-full ">
               <div className="text-center mb-12">
                 <div className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-sm text-amber-800 mb-6">
                   <Coins className="mr-1 h-3 w-3" />
                   Credit-Based Pricing
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
                   Choose Your Credit Package
                 </h1>
-                <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+                <p className="text-sm md:text-xl text-gray-700 max-w-3xl mx-auto mb-8">
                   Purchase credits to generate stunning AI avatars. Each
                   generation uses 10 credits and creates 20+ unique avatars.
                 </p>
               </div>
 
               {/* Pricing Cards */}
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
+              <div className="grid md:grid-cols-3  gap-8 mb-12">
                 {creditPackages.map((pkg) => {
                   const IconComponent = pkg.icon;
                   return (
                     <div
                       key={pkg.id}
-                      className={`relative bg-white/30 hover:bg-white transition-all hover:shadow-lg shadow-sm rounded-md p-6 flex flex-col justify-between   `}
+                      className={`relative bg-white/30 hover:bg-white transition-all hover:shadow-lg shadow-sm rounded-lg p-6 flex flex-col justify-between   `}
                     >
                       <div className="text-center pb-4">
                         <div className="flex justify-center mb-4">
@@ -136,5 +138,7 @@ export default function Pricing() {
         </section>
       </div>
     </main>
+    </PageTransitionWrapper>
+
   );
 }

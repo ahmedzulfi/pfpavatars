@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
           </p>
 
           <div className="max-w-xl mx-auto">
-            <div className="md:mt-6 mt-2 text-center w-[90%] mx-auto">
+            <div className="md:mt-6 mt-2 text-center max-w-[90%] w-max mx-auto">
               <button className="md:px-8 px-4 py-2 md:py-3 bg-gradient-to-b  from-[#fff1e480] to-[#7d6c5c]  w-full shadow-[#7d6c5c]  text-white font-medium rounded-full shadow hover:shadow-md transition-all duration-300 hover:opacity-95">
                 Generate Avatars
               </button>
