@@ -31,46 +31,7 @@ export default function GetStarted() {
       name: "Artistic",
       description: "Creative and stylized portraits",
     },
-    {
-      id: "cartoon",
-      name: "Cartoon",
-      description: "Fun, animated-style avatars",
-    },
-    {
-      id: "realistic",
-      name: "Realistic",
-      description: "Photo-realistic enhanced portraits",
-    },
-    {
-      id: "minimalist",
-      name: "Minimalist",
-      description: "Simple, clean design",
-    },
-    {
-      id: "vintage",
-      name: "Vintage",
-      description: "Classic, retro-style avatars",
-    },
   ];
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setUploadedImage(file);
-    }
-  };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -176,9 +137,6 @@ export default function GetStarted() {
                                       ? "border-[#d4c4a8] bg-[#d4c4a8]/10"
                                       : "border-gray-300 hover:border-[#d4c4a8]"
                                   }`}
-                                  onDragOver={handleDragOver}
-                                  onDragLeave={handleDragLeave}
-                                  onDrop={handleDrop}
                                   onClick={handleUploadClick}
                                 >
                                   <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -199,9 +157,6 @@ export default function GetStarted() {
                                 <div
                                   className="relative border-2 border-dashed border-[#d4c4a8] rounded-lg p-4 cursor-pointer hover:border-[#c2b394] transition-colors bg-[#d4c4a8]/5"
                                   onClick={handleUploadClick}
-                                  onDragOver={handleDragOver}
-                                  onDragLeave={handleDragLeave}
-                                  onDrop={handleDrop}
                                 >
                                   <img
                                     src={URL.createObjectURL(uploadedImage)}
@@ -210,7 +165,9 @@ export default function GetStarted() {
                                   />
                                   <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
                                     <div className="opacity-0 hover:opacity-100 transition-opacity bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
-                                      <p className="text-sm font-medium text-gray-900">Click to change image</p>
+                                      <p className="text-sm font-medium text-gray-900">
+                                        Click to change image
+                                      </p>
                                     </div>
                                   </div>
                                   <button
@@ -225,7 +182,7 @@ export default function GetStarted() {
                                   </button>
                                 </div>
                               )}
-                              
+
                               <input
                                 ref={fileInputRef}
                                 type="file"

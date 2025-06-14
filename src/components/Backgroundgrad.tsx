@@ -3,7 +3,7 @@ import React from "react";
 import image1 from '../image/ez.jpg'
 function Backgroundgrad() {
   return (
-    <div className="absolute top-0 left-0 w-full h-full z-0  inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:35px_34px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
+    <div className="absolute top-0 left-0 w-full h-auto z-0 opacity-80 inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:35px_34px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]">
       <Image
         src={image1}
         alt="Background"

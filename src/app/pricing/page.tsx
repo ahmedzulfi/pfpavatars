@@ -2,143 +2,160 @@
 
 import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
 import Backgroundgrad from "@/components/Backgroundgrad";
-import { Check, Coins, ArrowLeft, Sparkles, Zap, Crown } from "lucide-react";
-import Link from "next/link";
+import { Check, Sparkles } from "lucide-react";
 
 export default function Pricing() {
-  const creditPackages = [
-    {
-      id: "starter",
-      name: "Starter Pack",
-      credits: 25,
-      price: 9.99,
-      popular: false,
-      icon: Sparkles,
-      features: [
-        "25 Credits",
-        "2-3 Avatar Generations",
-        "High Quality Output",
-        "Email Support",
-      ],
-      savings: null,
-    },
-    {
-      id: "popular",
-      name: "Popular Pack",
-      credits: 75,
-      price: 24.99,
-      popular: true,
-      icon: Zap,
-      features: [
-        "75 Credits",
-        "7-8 Avatar Generations",
-        "High Quality Output",
-        "Priority Support",
-        "Style Variations",
-      ],
-    },
-    {
-      id: "pro",
-      name: "Pro Pack",
-      credits: 200,
-      price: 59.99,
-      popular: false,
-      icon: Crown,
-      features: [
-        "200 Credits",
-        "20+ Avatar Generations",
-        "Ultra High Quality",
-        "Priority Support",
-        "All Style Options",
-        "Commercial License",
-      ],
-    },
-  ];
-
   return (
     <PageTransitionWrapper>
-    <main className=" min-h-screen  relative flex flex-col justify-center items-center bg-white text-background w-full font-[family-name:var(--font-geist-sans)]">
-      <Backgroundgrad />
-      <div className="relative z-20 w-full flex justify-center  backdrop-blur-sm   h-full ">
-        <section className="relative pt-25 w-[1270px] max-w-[90%] h-full  overflow-visible ">
-          <div className="container  mx-auto px-2 sm:px-6 lg:px-0 pt-10 md:pt-16 pb-16 md:pb-24 relative z-10  h-full  rounded-4xl">
-            <div className="w-full ">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-sm text-amber-800 mb-6">
-                  <Coins className="mr-1 h-3 w-3" />
-                  Credit-Based Pricing
+      <main className="min-h-screen relative flex flex-col justify-center items-center mt-10  bg-[#f5f5f5] text-background w-full font-[family-name:var(--font-geist-sans)]">
+        <div className="relative z-20 w-full flex justify-center backdrop-blur-sm h-full">
+          <section className="relative pt-25 w-[1270px] max-w-[90%] h-full overflow-visible">
+            <div className="container mx-auto px-2 sm:px-6 lg:px-0 pt-10 md:pt-16 pb-16 md:pb-24 relative z-10 h-full rounded-4xl">
+              <div className="w-full">
+                <div className="text-center mb-12">
+                  <div>
+                    <span className="flex items-center  justify-betweeen w-max mx-auto md:px-6 px-3 py-1.5 mb-6 text-sm font-medium rounded-full bg-[#ffedc9] bg-blur-md text-yellow-950">
+                      <Sparkles className="h-4 w-4 me-2 text-yellow-700" />
+                      <span> Simple, Affordable Pricing</span>
+                    </span>
+                  </div>
+
+                  <h1 className="text-3xl md:text-6xl font-bold text-dark-950 mb-4 leading-tight text-center">
+                    Generate Your Perfect <br />{" "}
+                    <span className="font-normal  italic font-serif">
+                      Profile Picture
+                    </span>
+                  </h1>
+                  <p className="text-sm md:text-xl  text-gray-700 max-w-3xl mx-auto mb-8">
+                    Each generation takes about 60 seconds. Purchase as many as
+                    you'd like.
+                  </p>
                 </div>
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                  Choose Your Credit Package
-                </h1>
-                <p className="text-sm md:text-xl text-gray-700 max-w-3xl mx-auto mb-8">
-                  Purchase credits to generate stunning AI avatars. Each
-                  generation uses 10 credits and creates 20+ unique avatars.
-                </p>
-              </div>
 
-              {/* Pricing Cards */}
-              <div className="grid md:grid-cols-3  gap-8 mb-12">
-                {creditPackages.map((pkg) => {
-                  const IconComponent = pkg.icon;
-                  return (
-                    <div
-                      key={pkg.id}
-                      className={`relative bg-white/30 hover:bg-white transition-all hover:shadow-lg shadow-sm rounded-lg p-6 flex flex-col justify-between   `}
-                    >
-                      <div className="text-center pb-4">
-                        <div className="flex justify-center mb-4">
-                          <div className="p-3 bg-[#d4c4a8]/20 rounded-full inline-flex items-center justify-center">
-                            <IconComponent className="w-8 h-8 text-[#8b7355]" />
-                          </div>
-                        </div>
-                        <div className="text-xl font-bold text-gray-900">
-                          {pkg.name}
-                        </div>
-                        <div className="mt-4">
-                          <div className="flex items-center justify-center space-x-2">
-                            <span className="text-3xl font-bold text-gray-900">
-                              ${pkg.price}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-center mt-2 text-gray-600">
-                            <Coins className="w-4 h-4 mr-1" />
-                            <span>{pkg.credits} Credits</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <ul className="space-y-3 mb-6">
-                          {pkg.features.map((feature, index) => (
-                            <li key={index} className="flex items-center">
-                              <Check className="w-4 h-4 text-green-600 mr-3 flex-shrink-0" />
-                              <span className="text-gray-700">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-
-                        <button
-                          type="button"
-                          className={`w-full py-2 rounded font-semibold ${
-                            pkg.popular
-                              ? "bg-[#d4c4a8] hover:bg-[#c2b394] text-gray-900"
-                              : "bg-gray-100 hover:bg-gray-200 text-gray-900"
-                          } transition-colors`}
-                        >
-                          Purchase Credits
-                        </button>
-                      </div>
+                {/* Pricing Cards */}
+                <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
+                  {/* Single Generation */}
+                  <div className="relative bg-white border-2 border-blue-200 rounded-xl p-8 flex flex-col justify-between shadow-lg">
+                    {/* Popular Badge */}
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-black text-white px-4 py-1 rounded-full text-sm font-medium">
+                        Popular
+                      </span>
                     </div>
-                  );
-                })}
+
+                    <div className="text-center pb-6">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                        Single Generation
+                      </h3>
+                      <div className="mb-4">
+                        <span className="text-5xl font-bold text-gray-900">
+                          $1
+                        </span>
+                        <span className="text-gray-600 ml-2">/generation</span>
+                      </div>
+                      <p className="text-gray-600 mb-6">
+                        Generate one profile picture
+                      </p>
+
+                      <button className="w-full bg-black text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-colors mb-6">
+                        Generate Now
+                      </button>
+                    </div>
+
+                    <ul className="space-y-3">
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          One profile picture generation
+                        </span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          ~60 second generation time
+                        </span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          High quality output
+                        </span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">Instant download</span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          Transparent backgrounds
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Bundle Pack */}
+                  <div className="relative bg-white/30 hover:bg-white transition-all hover:shadow-lg shadow-sm rounded-xl p-8 flex flex-col justify-between border border-gray-200">
+                    <div className="text-center pb-6">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                        Bundle Pack
+                      </h3>
+                      <div className="mb-4">
+                        <span className="text-5xl font-bold text-gray-900">
+                          $3
+                        </span>
+                        <span className="text-gray-600 ml-2">/bundle</span>
+                      </div>
+                      <p className="text-gray-600 mb-6">
+                        5 profile pictures for the price of 3
+                      </p>
+
+                      <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 py-3 px-6 rounded-lg font-semibold transition-colors mb-6">
+                        Coming Soon
+                      </button>
+                    </div>
+
+                    <ul className="space-y-3">
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          5 profile picture generations
+                        </span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          ~60 second generation time each
+                        </span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          High quality output
+                        </span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">Instant download</span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">
+                          Transparent backgrounds
+                        </span>
+                      </li>
+                      <li className="flex items-center">
+                        <Check className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">Save 40%</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </div>
-    </main>
+          </section>
+        </div>
+      </main>
     </PageTransitionWrapper>
-
   );
 }

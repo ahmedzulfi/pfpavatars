@@ -10,10 +10,10 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="w-[1270px] max-w-[90%] flex justify-center md:absolute fixed top-0 z-50 pt-7 shadow-none">
+    <header className="w-[1270px] max-w-[90%] flex justify-center md:fixed fixed top-0 z-50 pt-7 shadow-none">
       <PageTransitionWrapper>
         {" "}
-        <div className="w-full mx-auto md:flex flex-col justify-between px-5 rounded-xl bg-white/60 backdrop-blur-sm shadow-xs items-center py-3 text-black">
+        <div className="w-full mx-auto md:flex flex-col justify-between px-5 border border-[#00000018] rounded-full bg-[#fff]  items-center py-3 text-black">
           <div className="flex w-full justify-between items-center">
             <Link href={"/"}>
               <h1 className="text-xl font-bold uppercase w-[50%] flex items-center">
@@ -39,7 +39,7 @@ function Header() {
                 </span>
               </Link>
               <Link href="/upload">
-                <div className="bg-gradient-to-b from-[#fce0c8] to-[#7d6c5c] hover:bg-[#c2b394] text-white px-6 py-2 rounded-md font-medium shadow-sm hover:shadow-lg transition-all cursor-pointer">
+                <div className="bg-gradient-to-b bg-[#ffedc9] text-black px-6 py-2 font-medium shadow-sm hover:shadow-lg transition-all cursor-pointer rounded-full">
                   Login
                 </div>
               </Link>
@@ -67,7 +67,7 @@ function Header() {
                 </div>
               </Link>
               <Link href="/upload" className="w-full">
-                <div className="bg-gradient-to-b from-[#fce0c8] to-[#7d6c5c] mt-1 hover:bg-[#c2b394] text-white  w-full px-6 py-2 text-center rounded-md font-medium shadow-sm hover:shadow-lg transition-all cursor-pointer">
+                <div className="bg-gradient-to-b  bg-[#ffedc9] text-white  w-full px-6 py-2 text-center rounded-md font-medium shadow-sm hover:shadow-lg transition-all cursor-pointer">
                   Get Started
                 </div>
               </Link>
