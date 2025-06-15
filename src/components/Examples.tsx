@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import image1 from "../image/avatar1.jpg";
 
-export default function AvatarGallery(): JSX.Element {
+export default function AvatarGallery() {
   const avatars = [
     { id: 1, image: image1, bg: "bg-green-200" },
     { id: 2, image: image1, bg: "bg-orange-200" },
@@ -16,7 +16,7 @@ export default function AvatarGallery(): JSX.Element {
     { id: 8, image: image1, bg: "bg-yellow-200" },
   ];
 
-  const duplicatedAvatars = [...avatars, ...avatars,...avatars, ...avatars];
+  const duplicatedAvatars = [...avatars, ...avatars, ...avatars, ...avatars];
 
   return (
     <div className="relative w-full mt-15">
