@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.20.1",
+    "@studio-freight/lenis": "^1.0.42",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.8",
     "framer-motion": "^12.15.0",

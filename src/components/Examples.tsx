@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import Image from "next/image";
 import image1 from "../image/avatar1.jpg";
@@ -16,83 +15,74 @@ export default function AvatarGallery() {
     { id: 8, image: image1, bg: "bg-yellow-200" },
   ];
 
-  const duplicatedAvatars = [...avatars, ...avatars, ...avatars, ...avatars];
-
   return (
-    <div className="relative w-full mt-15">
-      <div className="relative w-full">
-        {/* LEFT GRADIENT */}
-        <div className="absolute top-0 left-0 h-full w-40 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
-
-        {/* RIGHT GRADIENT */}
-        <div className="absolute top-0 right-0 h-full w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
-
-        {/* First Row - Scroll Right */}
-        <div className="overflow-hidden mb-8 w-full">
-          <div className="flex animate-scroll-right space-x-6 w-max">
-            {duplicatedAvatars.map((avatar, index) => (
-              <div
-                key={`row1-${index}`}
-                className={`flex-shrink-0 w-48 h-48 rounded-2xl p-10 ${avatar.bg} transition-transform`}
-              >
-                <Image
-                  src={avatar.image}
-                  width={200}
-                  height={200}
-                  alt="Avatar"
-                  className="w-full h-full object-cover rounded-xl"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Second Row - Scroll Left */}
-        <div className="overflow-hidden w-full">
-          <div className="md:flex hidden animate-scroll-left space-x-6 w-max">
-            {duplicatedAvatars.map((avatar, index) => (
-              <div
-                key={`row2-${index}`}
-                className={`flex-shrink-0 w-48 h-48 p-10 rounded-2xl ${avatar.bg} transition-transform`}
-              >
-                <Image
-                  src={avatar.image}
-                  width={200}
-                  height={200}
-                  alt="Avatar"
-                  className="w-full h-full object-cover rounded-xl"
-                />
-              </div>
-            ))}
-          </div>
+    <div className="relative w-full mt-16 overflow-hidden">
+      {/* Left & Right Gradients */}
+      <div className="absolute top-0 left-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
+      <div className="absolute top-0 right-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
+      
+      {/* Top Row - scroll left */}
+      <div className="overflow-hidden w-full mb-12">
+        <div className="flex animate-loop-left gap-6 w-max">
+          {[...avatars, ...avatars, ...avatars].map((avatar, index) => (
+            <div
+              key={`top-${index}`}
+              className={`flex-shrink-0 w-36 h-36 p-4 rounded-2xl ${avatar.bg}`}
+            >
+              <Image
+                src={avatar.image}
+                alt="Avatar"
+                width={500}
+                height={500}
+                className="w-full h-full object-cover rounded-xl"
+              />
+            </div>
+          ))}
         </div>
       </div>
-
+      
+      {/* Bottom Row - scroll right */}
+      <div className="overflow-hidden w-full hidden md:block">
+        <div className="flex animate-loop-right gap-6 w-max">
+          {[...avatars, ...avatars, ...avatars].map((avatar, index) => (
+            <div
+              key={`bottom-${index}`}
+              className={`flex-shrink-0 w-36 h-36 p-4 rounded-2xl ${avatar.bg}`}
+            >
+              <Image
+                src={avatar.image}
+                alt="Avatar"
+                width={500}
+                height={500}
+                className="w-full h-full object-cover rounded-xl"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      
       <style jsx>{`
-        @keyframes scroll-right {
+        @keyframes loop-left {
           0% {
-            transform: translateX(-100%);
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(-33.333%);
+          }
+        }
+        @keyframes loop-right {
+          0% {
+            transform: translateX(-33.333%);
           }
           100% {
             transform: translateX(0%);
           }
         }
-
-        @keyframes scroll-left {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
+        .animate-loop-left {
+          animation: loop-left 60s linear infinite;
         }
-
-        .animate-scroll-right {
-          animation: scroll-right 180s linear infinite;
-        }
-
-        .animate-scroll-left {
-          animation: scroll-left 180s linear infinite;
+        .animate-loop-right {
+          animation: loop-right 60s linear infinite;
         }
       `}</style>
     </div>

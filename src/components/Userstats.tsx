@@ -35,7 +35,7 @@ function Userstats() {
             </div>
             <div className="ml-auto">
               <Link href={"/pricing"}>
-                <div className="bg-[#d4c4a8] px-3 py-2 font-medium  text-xs rounded-md hover:bg-[#ffedc9] text-gray-900">
+                <div className="bg-[#ffedc9] px-3 py-2 font-medium  text-xs rounded-md hover:bg-[#ffedc9] text-gray-900">
                   Buy More
                 </div>
               </Link>
@@ -58,7 +58,7 @@ function Userstats() {
             </div>
             <div className="ml-auto">
               <Link href={"/pricing"}>
-                <div className="bg-[#d4c4a8] px-3 py-2 font-medium inline-flex  text-xs rounded-md hover:bg-[#ffedc9] text-gray-900">
+                <div className="bg-[#ffedc9] px-3 py-2 font-medium inline-flex  text-xs rounded-md hover:bg-[#ffedc9] text-gray-900">
                   New <Plus className="w-4 h-4 ml-1" />
                 </div>
               </Link>

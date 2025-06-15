@@ -49,20 +49,6 @@ function RecentAvatars() {
       count: 24,
       thumbnail: image3,
     },
-    {
-      id: 7,
-      date: "May 15, 2025",
-      style: "Cartoon",
-      count: 24,
-      thumbnail: image2,
-    },
-    {
-      id: 8,
-      date: "May 10, 2025",
-      style: "Realistic",
-      count: 24,
-      thumbnail: image3,
-    },
   ];
   return (
     <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 bg-white/60 backdrop-blur-sm shadow-xs border-black/7 rounded-xl md:px-6 px-3 py-6">
@@ -76,7 +62,7 @@ function RecentAvatars() {
    
       </div>
       <div>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">
           {recentGenerations.map((generation) => (
             <div key={generation.id} className="group cursor-pointer">
               <div className="relative aspect-square mb-3 overflow-hidden rounded-lg">
