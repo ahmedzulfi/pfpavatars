@@ -16,18 +16,18 @@ export default function AvatarGallery() {
   ];
 
   return (
-    <div className="relative w-full mt-16 overflow-hidden">
+    <div className="relative w-full mt-15 overflow-hidden">
       {/* Left & Right Gradients */}
       <div className="absolute top-0 left-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
       <div className="absolute top-0 right-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
-      
+
       {/* Top Row - scroll left */}
-      <div className="overflow-hidden w-full mb-12">
+      <div className="overflow-hidden w-full md:mb-12">
         <div className="flex animate-loop-left gap-6 w-max">
           {[...avatars, ...avatars, ...avatars].map((avatar, index) => (
             <div
               key={`top-${index}`}
-              className={`flex-shrink-0 w-36 h-36 p-4 rounded-2xl ${avatar.bg}`}
+              className={`flex-shrink-0 md:w-45 md:h-45 w-35 h-35  p-4 rounded-2xl ${avatar.bg}`}
             >
               <Image
                 src={avatar.image}
@@ -40,14 +40,14 @@ export default function AvatarGallery() {
           ))}
         </div>
       </div>
-      
+
       {/* Bottom Row - scroll right */}
       <div className="overflow-hidden w-full hidden md:block">
         <div className="flex animate-loop-right gap-6 w-max">
           {[...avatars, ...avatars, ...avatars].map((avatar, index) => (
             <div
               key={`bottom-${index}`}
-              className={`flex-shrink-0 w-36 h-36 p-4 rounded-2xl ${avatar.bg}`}
+              className={`flex-shrink-0 md:w-45 md:h-45 w-25 h-25 p-4 rounded-2xl ${avatar.bg}`}
             >
               <Image
                 src={avatar.image}
@@ -60,7 +60,7 @@ export default function AvatarGallery() {
           ))}
         </div>
       </div>
-      
+
       <style jsx>{`
         @keyframes loop-left {
           0% {

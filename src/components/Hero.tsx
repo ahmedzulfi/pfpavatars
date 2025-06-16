@@ -7,8 +7,6 @@ import Pricing from "@/app/pricing/page";
 const Hero: React.FC = () => {
   return (
     <section className="relative w-full pt-27  overflow-hidden">
-  
-
       <div className="  w-full mx-auto px-4 sm:px-6 lg:px-0 pt-10 md:pt-16 pb-16 md:pb-24 relative z-10">
         <div className="w-full mx-auto text-center">
           <div>
@@ -17,7 +15,6 @@ const Hero: React.FC = () => {
               <span> AI-Powered Avatar Generation</span>
             </span>
           </div>
-
           <h1 className="text-3xl md:text-7xl font-bold text-dark-950 mb-4 leading-tight text-center">
             <BlurText
               text="Transform Your Photos"
@@ -32,22 +29,18 @@ const Hero: React.FC = () => {
               className="bg-clip-text font-normal italic font-serif justify-center"
             />
           </h1>
-
           <p className="text-sm md:text-xl text-gray-600 md:mb-10 mb-7 max-w-2xl mx-auto">
             Transform your photos into stunning professional avatars with our
             advanced AI technology
           </p>
-
           <div className="max-w-xl mx-auto">
             <div className="md:mt-6 mt-2 text-center max-w-[90%] w-max mx-auto">
               <button className="md:px-8 px-4 py-2 md:py-3  bg-[#ffedc9]  w-full shadow-[#7d6c5c]  text-black font-medium rounded-full  hover:shadow-sm transition-all duration-300 hover:opacity-95">
                 Generate Avatars
               </button>
             </div>
-          </div>
-
+          </div>{" "}
           <AvatarGallery />
-          <Pricing />
         </div>
       </div>
     </section>
