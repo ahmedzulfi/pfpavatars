@@ -65,295 +65,298 @@ export default function GetStarted() {
 
   return (
     <>
-      <PageTransitionWrapper>
-        <main className=" min-h-screen  relative flex flex-col justify-center items-center bg-white text-background w-full font-[family-name:var(--font-geist-sans)]">
-          <div className="relative z-20 min-h-screen flex justify-center w-full  backdrop-blur-sm  ">
-            <section className="relative pt-20  w-[1270px] max-w-[90%] min-h-[80%] overflow-visible ">
-              <div className="container mx-auto px-2 sm:px-6 lg:px-0 pt-10 md:pt-10 pb-16 md:pb-24 relative z-10  h-full rounded-xl">
-                <div className="bg-white/60 backdrop-blur-sm shadow-xs rounded-2xl p-8 text-gray-900 mb-7">
-                  {/* Progress Steps */}
-                  <div className="px-4 py-4 lg:px-8">
-                    <div className="mx-auto max-w-4xl">
-                      <div className="flex items-center justify-center space-x-8 mb-8">
-                        {[1, 2, 3].map((step) => (
-                          <div key={step} className="flex items-center">
-                            <div
-                              className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                                currentStep >= step
-                                  ? "bg-[#d4c4a8] border-[#d4c4a8] text-gray-900"
-                                  : "border-gray-300 text-gray-400"
-                              }`}
+ <PageTransitionWrapper>
+  <main className="min-h-screen relative bg-[#f5f5f5] flex flex-col justify-center items-center text-background w-full font-[family-name:var(--font-geist-sans)]">
+    <div className="relative z-20 min-h-screen flex justify-center w-full backdrop-blur-sm">
+      <section className="relative pt-12 sm:pt-16 md:pt-20 w-full max-w-[1270px] px-4 sm:px-6 lg:px-8 xl:px-0 min-h-[80%] overflow-visible">
+        <div className="container mx-auto pt-6 sm:pt-8 md:pt-10 pb-12 sm:pb-16 md:pb-24 relative z-10 h-full rounded-xl">
+          <div className="backdrop-blur-sm shadow-xs rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 text-gray-900 mb-4 sm:mb-6 md:mb-7">
+            {/* Progress Steps */}
+            <div className="px-2 sm:px-4 py-4 lg:px-8">
+              <div className="mx-auto max-w-4xl">
+                <div className="flex items-center justify-center space-x-4 sm:space-x-6 md:space-x-8 mb-6 sm:mb-8">
+                  {[1, 2, 3].map((step) => (
+                    <div key={step} className="flex items-center">
+                      <div
+                        className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 text-sm sm:text-base ${
+                          currentStep >= step
+                            ? "bg-[#d4c4a8] border-[#d4c4a8] text-gray-900"
+                            : "border-gray-300 text-gray-400"
+                        }`}
+                      >
+                        {currentStep > step ? (
+                          <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+                        ) : (
+                          step
+                        )}
+                      </div>
+                      {step < 3 && (
+                        <div
+                          className={`w-8 sm:w-12 md:w-16 h-0.5 ml-2 sm:ml-4 ${
+                            currentStep > step
+                              ? "bg-[#d4c4a8]"
+                              : "bg-gray-300"
+                          }`}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="text-center mb-6 sm:mb-8">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 px-2">
+                    {currentStep === 1 && "Upload Your Photo"}
+                    {currentStep === 2 && "Choose Your Style"}
+                    {currentStep === 3 && "Generate Avatars"}
+                  </h1>
+                  <p className="text-sm sm:text-base text-gray-600 px-2">
+                    {currentStep === 1 &&
+                      "Upload a high-quality photo of yourself for best results"}
+                    {currentStep === 2 &&
+                      "Select the avatar style that matches your preference"}
+                    {currentStep === 3 &&
+                      "Review your selections and generate your avatars"}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Content */}
+            <main className="px-2 sm:px-4 pb-8 sm:pb-12 lg:px-8">
+              <div className="mx-auto max-w-4xl">
+                {/* Step 1: Upload Photo */}
+                {currentStep === 1 && (
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="rounded-lg shadow-sm border border-[#d4c4a8] bg-white/80">
+                      <div className="p-4 sm:p-6 md:p-8">
+                        {!uploadedImage ? (
+                          <div
+                            className={`border-2 border-dashed rounded-lg p-6 sm:p-8 text-center transition-colors cursor-pointer ${
+                              isDragging
+                                ? "border-[#d4c4a8] bg-[#d4c4a8]/10"
+                                : "border-gray-300 hover:border-[#d4c4a8]"
+                            }`}
+                            onClick={handleUploadClick}
+                          >
+                            <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+                            <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
+                              Drag and drop your photo here
+                            </h3>
+                            <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
+                              or click to browse your files
+                            </p>
+                            <button
+                              type="button"
+                              className="bg-[#d4c4a8] hover:bg-[#c2b394] text-gray-900 px-4 py-2 rounded font-semibold text-sm sm:text-base"
                             >
-                              {currentStep > step ? (
-                                <Check className="w-5 h-5" />
-                              ) : (
-                                step
-                              )}
+                              Choose File
+                            </button>
+                          </div>
+                        ) : (
+                          <div
+                            className="relative border-2 border-dashed border-[#d4c4a8] rounded-lg p-3 sm:p-4 cursor-pointer hover:border-[#c2b394] transition-colors bg-[#d4c4a8]/5"
+                            onClick={handleUploadClick}
+                          >
+                            <img
+                              src={URL.createObjectURL(uploadedImage)}
+                              alt="Uploaded"
+                              className="w-full aspect-square object-cover rounded-lg max-w-sm mx-auto"
+                            />
+                            <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
+                              <div className="opacity-0 hover:opacity-100 transition-opacity bg-white/90 backdrop-blur-sm rounded-lg px-3 sm:px-4 py-2">
+                                <p className="text-xs sm:text-sm font-medium text-gray-900">
+                                  Click to change image
+                                </p>
+                              </div>
                             </div>
-                            {step < 3 && (
-                              <div
-                                className={`w-16 h-0.5 ml-4 ${
-                                  currentStep > step
-                                    ? "bg-[#d4c4a8]"
-                                    : "bg-gray-300"
-                                }`}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                removeImage();
+                              }}
+                              className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-8 sm:h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 shadow-lg"
+                            >
+                              <X className="w-3 h-3 sm:w-4 sm:h-4" />
+                            </button>
+                          </div>
+                        )}
+
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileSelect}
+                          className="hidden"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 sm:p-4">
+                      <h4 className="font-semibold text-amber-800 mb-2 text-sm sm:text-base">
+                        Tips for best results:
+                      </h4>
+                      <ul className="text-xs sm:text-sm text-amber-700 space-y-1 list-disc list-inside">
+                        <li>
+                          Use a high-resolution photo (at least 512x512
+                          pixels)
+                        </li>
+                        <li>
+                          Include different angles and expressions if
+                          possible
+                        </li>
+                        <li>
+                          Ensure good lighting and clear facial features
+                        </li>
+                        <li>Avoid sunglasses or face coverings</li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 2: Choose Style */}
+                {currentStep === 2 && (
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                      {avatarStyles.map((style) => (
+                        <div
+                          key={style.id}
+                          className={`cursor-pointer transition-all rounded-lg border shadow-sm p-4 sm:p-6 ${
+                            selectedStyle === style.id
+                              ? "ring-2 ring-[#d4c4a8] bg-[#d4c4a8]/10 border-[#d4c4a8]"
+                              : "bg-white/80 border border-gray-200 hover:bg-white"
+                          }`}
+                          onClick={() => setSelectedStyle(style.id)}
+                        >
+                          <div className="aspect-square bg-gray-100 rounded-lg mb-3 sm:mb-4 flex items-center justify-center">
+                            <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />
+                          </div>
+                          <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+                            {style.name}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-gray-600">
+                            {style.description}
+                          </p>
+                          {selectedStyle === style.id && (
+                            <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded bg-[#d4c4a8] text-gray-900">
+                              Selected
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 3: Generate */}
+                {currentStep === 3 && (
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="rounded-lg shadow-sm border border-[#d4c4a8] bg-white/80">
+                      <div className="p-4 sm:p-6 md:p-8">
+                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
+                          Review Your Selection
+                        </h3>
+
+                        <div className="space-y-3 sm:space-y-4">
+                          <div>
+                            <h4 className="font-medium text-gray-900 mb-2 text-sm sm:text-base">
+                              Photo
+                            </h4>
+                            {uploadedImage ? (
+                              <img
+                                src={URL.createObjectURL(uploadedImage)}
+                                alt="Preview"
+                                className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg"
                               />
+                            ) : (
+                              <p className="text-sm sm:text-base">No photo uploaded</p>
                             )}
                           </div>
-                        ))}
-                      </div>
 
-                      <div className="text-center mb-8">
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                          {currentStep === 1 && "Upload Your Photo"}
-                          {currentStep === 2 && "Choose Your Style"}
-                          {currentStep === 3 && "Generate Avatars"}
-                        </h1>
-                        <p className="text-gray-600">
-                          {currentStep === 1 &&
-                            "Upload a high-quality photo of yourself for best results"}
-                          {currentStep === 2 &&
-                            "Select the avatar style that matches your preference"}
-                          {currentStep === 3 &&
-                            "Review your selections and generate your avatars"}
-                        </p>
+                          <div>
+                            <h4 className="font-medium text-gray-900 mb-2 text-sm sm:text-base">
+                              Style
+                            </h4>
+                            <span className="inline-block px-2 py-1 text-xs font-semibold rounded bg-[#d4c4a8] text-gray-900">
+                              {
+                                avatarStyles.find(
+                                  (s) => s.id === selectedStyle
+                                )?.name
+                              }
+                            </span>
+                          </div>
+
+                          <div>
+                            <h4 className="font-medium text-gray-900 mb-2 text-sm sm:text-base">
+                              Cost
+                            </h4>
+                            <div className="flex items-center space-x-2">
+                              <Coins className="w-3 h-3 sm:w-4 sm:h-4 text-amber-600" />
+                              <span className="text-gray-900 text-sm sm:text-base">
+                                {creditsRequired} Credits
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-blue-50 rounded-lg">
+                          <p className="text-xs sm:text-sm text-blue-800 flex items-start sm:items-center">
+                            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 mt-0.5 sm:mt-0 flex-shrink-0" />
+                            <span>
+                              Your avatars will be generated in about 2-3
+                              minutes. You'll receive 20+ unique avatars in
+                              high resolution.
+                            </span>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
+                )}
 
-                  {/* Main Content */}
-                  <main className="px-4 pb-12 lg:px-8">
-                    <div className="mx-auto max-w-4xl">
-                      {/* Step 1: Upload Photo */}
-                      {currentStep === 1 && (
-                        <div className="space-y-6">
-                          <div className="rounded-lg shadow-sm border border-[#d4c4a8] bg-white/80">
-                            <div className="p-8">
-                              {!uploadedImage ? (
-                                <div
-                                  className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors cursor-pointer ${
-                                    isDragging
-                                      ? "border-[#d4c4a8] bg-[#d4c4a8]/10"
-                                      : "border-gray-300 hover:border-[#d4c4a8]"
-                                  }`}
-                                  onClick={handleUploadClick}
-                                >
-                                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                                    Drag and drop your photo here
-                                  </h3>
-                                  <p className="text-gray-600 mb-4">
-                                    or click to browse your files
-                                  </p>
-                                  <button
-                                    type="button"
-                                    className="bg-[#d4c4a8] hover:bg-[#c2b394] text-gray-900 px-4 py-2 rounded font-semibold"
-                                  >
-                                    Choose File
-                                  </button>
-                                </div>
-                              ) : (
-                                <div
-                                  className="relative border-2 border-dashed border-[#d4c4a8] rounded-lg p-4 cursor-pointer hover:border-[#c2b394] transition-colors bg-[#d4c4a8]/5"
-                                  onClick={handleUploadClick}
-                                >
-                                  <img
-                                    src={URL.createObjectURL(uploadedImage)}
-                                    alt="Uploaded"
-                                    className="w-full aspect-square object-cover rounded-lg"
-                                  />
-                                  <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors rounded-lg flex items-center justify-center">
-                                    <div className="opacity-0 hover:opacity-100 transition-opacity bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
-                                      <p className="text-sm font-medium text-gray-900">
-                                        Click to change image
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <button
-                                    type="button"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      removeImage();
-                                    }}
-                                    className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 shadow-lg"
-                                  >
-                                    <X className="w-4 h-4" />
-                                  </button>
-                                </div>
-                              )}
+                {/* Navigation Buttons */}
+                <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-6 sm:mt-8">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setCurrentStep(Math.max(1, currentStep - 1))
+                    }
+                    disabled={currentStep === 1}
+                    className="order-2 sm:order-1 border border-gray-300 px-4 py-2 rounded font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                  >
+                    Previous
+                  </button>
 
-                              <input
-                                ref={fileInputRef}
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileSelect}
-                                className="hidden"
-                              />
-                            </div>
-                          </div>
-
-                          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                            <h4 className="font-semibold text-amber-800 mb-2">
-                              Tips for best results:
-                            </h4>
-                            <ul className="text-sm text-amber-700 space-y-1 list-disc list-inside">
-                              <li>
-                                Use a high-resolution photo (at least 512x512
-                                pixels)
-                              </li>
-                              <li>
-                                Include different angles and expressions if
-                                possible
-                              </li>
-                              <li>
-                                Ensure good lighting and clear facial features
-                              </li>
-                              <li>Avoid sunglasses or face coverings</li>
-                            </ul>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Step 2: Choose Style */}
-                      {currentStep === 2 && (
-                        <div className="space-y-6">
-                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {avatarStyles.map((style) => (
-                              <div
-                                key={style.id}
-                                className={`cursor-pointer transition-all rounded-lg border shadow-sm p-6 ${
-                                  selectedStyle === style.id
-                                    ? "ring-2 ring-[#d4c4a8] bg-[#d4c4a8]/10 border-[#d4c4a8]"
-                                    : "bg-white/80 border border-gray-200 hover:bg-white"
-                                }`}
-                                onClick={() => setSelectedStyle(style.id)}
-                              >
-                                <div className="aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
-                                  <Sparkles className="w-8 h-8 text-gray-400" />
-                                </div>
-                                <h3 className="font-semibold text-gray-900 mb-1">
-                                  {style.name}
-                                </h3>
-                                <p className="text-sm text-gray-600">
-                                  {style.description}
-                                </p>
-                                {selectedStyle === style.id && (
-                                  <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded bg-[#d4c4a8] text-gray-900">
-                                    Selected
-                                  </span>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Step 3: Generate */}
-                      {currentStep === 3 && (
-                        <div className="space-y-6">
-                          <div className="rounded-lg shadow-sm border border-[#d4c4a8] bg-white/80">
-                            <div className="p-8">
-                              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                                Review Your Selection
-                              </h3>
-
-                              <div className="space-y-4">
-                                <div>
-                                  <h4 className="font-medium text-gray-900 mb-2">
-                                    Photo
-                                  </h4>
-                                  {uploadedImage ? (
-                                    <img
-                                      src={URL.createObjectURL(uploadedImage)}
-                                      alt="Preview"
-                                      className="w-16 h-16 object-cover rounded-lg"
-                                    />
-                                  ) : (
-                                    <p>No photo uploaded</p>
-                                  )}
-                                </div>
-
-                                <div>
-                                  <h4 className="font-medium text-gray-900 mb-2">
-                                    Style
-                                  </h4>
-                                  <span className="inline-block px-2 py-1 text-xs font-semibold rounded bg-[#d4c4a8] text-gray-900">
-                                    {
-                                      avatarStyles.find(
-                                        (s) => s.id === selectedStyle
-                                      )?.name
-                                    }
-                                  </span>
-                                </div>
-
-                                <div>
-                                  <h4 className="font-medium text-gray-900 mb-2">
-                                    Cost
-                                  </h4>
-                                  <div className="flex items-center space-x-2">
-                                    <Coins className="w-4 h-4 text-amber-600" />
-                                    <span className="text-gray-900">
-                                      {creditsRequired} Credits
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-                                <p className="text-sm text-blue-800 flex items-center">
-                                  <Sparkles className="w-4 h-4 mr-1" />
-                                  Your avatars will be generated in about 2-3
-                                  minutes. You'll receive 20+ unique avatars in
-                                  high resolution.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Navigation Buttons */}
-                      <div className="flex justify-between mt-8">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setCurrentStep(Math.max(1, currentStep - 1))
-                          }
-                          disabled={currentStep === 1}
-                          className="border border-gray-300 px-4 py-2 rounded font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          Previous
-                        </button>
-
-                        {currentStep < 3 ? (
-                          <button
-                            type="button"
-                            onClick={() => setCurrentStep(currentStep + 1)}
-                            disabled={!canProceed()}
-                            className="bg-[#d4c4a8] hover:bg-[#c2b394] text-gray-900 px-4 py-2 rounded font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            Continue
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            disabled={!canProceed() || !hasEnoughCredits}
-                            onClick={handleGenerate}
-                            className="bg-[#d4c4a8] hover:bg-[#c2b394] text-gray-900 px-4 py-2 rounded font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                          >
-                            <Sparkles className="w-4 h-4 mr-2" />
-                            Generate Avatars ({creditsRequired} Credits)
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </main>
+                  {currentStep < 3 ? (
+                    <button
+                      type="button"
+                      onClick={() => setCurrentStep(currentStep + 1)}
+                      disabled={!canProceed()}
+                      className="order-1 sm:order-2 bg-[#d4c4a8] hover:bg-[#c2b394] text-gray-900 px-4 py-2 rounded font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                    >
+                      Continue
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={!canProceed() || !hasEnoughCredits}
+                      onClick={handleGenerate}
+                      className="order-1 sm:order-2 bg-[#d4c4a8] hover:bg-[#c2b394] text-gray-900 px-4 py-2 rounded font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-sm sm:text-base"
+                    >
+                      <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                      <span className="hidden sm:inline">Generate Avatars ({creditsRequired} Credits)</span>
+                      <span className="sm:hidden">Generate ({creditsRequired} Credits)</span>
+                    </button>
+                  )}
                 </div>
               </div>
-            </section>
+            </main>
           </div>
-        </main>
-      </PageTransitionWrapper>
+        </div>
+      </section>
+    </div>
+  </main>
+</PageTransitionWrapper>
     </>
   );
 }
