@@ -28,8 +28,8 @@ const testimonials = [
 
 const Testimonials: React.FC = () => {
   return (
-    <section className="py-16 md:py-24  relative overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-16 md:py-24 bg-[#f5f5f5]  relative overflow-hidden">
+      <div className="container mx-auto max-w-[90%] w-full md:w-[1250px] px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium rounded-full bg-yellow-100 text-yellow-950">
             Testimonials

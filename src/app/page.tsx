@@ -7,6 +7,8 @@ import ExampleGallery from "@/components/ExampleGallery";
 import BeforeAfterGallery from "@/components/Examples";
 import AvatarGallery from "@/components/Examples";
 import Pricing from "./pricing/page";
+import Features from "@/components/Features";
+import Testimonials from "@/components/Testimonial";
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
         <div className="relative z-20 w-full h-full overflow-hidden">
           <Hero />
           <Pricing />
+          <Features />
+          <Testimonials />
         </div>
       </main>
     </PageTransitionWrapper>
