@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import Header from "@/components/Header";
 import LenisProvider from "@/components/animations/Lenisprovider";
+import { AnimatePresence } from "framer-motion";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +24,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <LenisProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col w-full items-center justify-center`}
-        >
-          <Header />
-          {children}
-        </body>
+        <AnimatePresence>
+          {" "}
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col w-full items-center justify-center`}
+          >
+            <Header />
+            {children}
+          </body>
+        </AnimatePresence>
       </LenisProvider>
     </html>
   );

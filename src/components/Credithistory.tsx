@@ -82,7 +82,7 @@ function Credithistory() {
         </div>
         <div className="mt-3 pt-2">
           <Link href={""}>
-            <div className="w-full  justify-center items-center py-3 rounded-lg inline-flex bg-[#d4c4a8] hover:bg-[#ffedc9]  transition-all duration-305 text-gray-900 ">
+            <div className="w-full  justify-center items-center py-3 rounded-lg inline-flex bg-[#ffedc9] hover:bg-[#ffdea6]  transition-all duration-305 text-gray-900 ">
               <CreditCard className="w-4 h-4 mr-2" />
               Purchase More Credits
             </div>

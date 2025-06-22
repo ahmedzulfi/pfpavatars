@@ -10,10 +10,8 @@ function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { name: "Research", href: "/research", icon: Search },
-    { name: "Product", href: "/product", icon: Package },
-    { name: "Studios", href: "/studios", icon: Building },
-    { name: "Company", href: "/company", icon: Users },
+    { name: "Pricing", href: "/pricing", icon: Search },
+    { name: "Features", href: "/features", icon: Package },
   ];
 
   return (
@@ -69,7 +67,7 @@ function Sidebar() {
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 aria-label="Toggle Sidebar"
               >
-                {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+                {sidebarOpen ? <X size={24} /> : <Menu size={24} className="text-black" />}
               </button>
             </div>
           </div>

@@ -28,11 +28,7 @@ export default function PricingCard({
 }: PricingCardProps) {
   return (
     <div
-      className={`relative ${
-        highlight
-          ? "bg-[#fffdf7] border-2 border-[#ffedc9]"
-          : "bg-white/30 border border-gray-200"
-      } hover:bg-white transition-all hover:shadow-lg shadow-sm rounded-xl 
+      className={`relative bg-white/90 border border-gray-100 hover:bg-white transition-all rounded-xl 
       p-5 sm:p-8 flex flex-col justify-between 
       min-h-[390px] sm:min-h-[490px] w-full max-w-md mx-auto`}
     >
@@ -46,6 +42,7 @@ export default function PricingCard({
           </span>
           <span className="text-gray-600 ml-1 sm:ml-2">{unit}</span>
         </div>
+
         <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
           {description}
         </p>

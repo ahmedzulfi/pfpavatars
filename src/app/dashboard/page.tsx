@@ -37,7 +37,7 @@ export default function Dashboard() {
                   </div>
 
                   <Link href="/upload" className="md:w-auto w-full">
-                    <div className="flex justify-center items-center w-full py-3 px-5 rounded-lg bg-[#ffedc9] hover:bg-[#ffedc9] transition-all duration-300 text-gray-900 w-full sm:w-auto">
+                    <div className="flex justify-center items-center py-3 px-5 rounded-lg bg-[#ffedc9] hover:bg-[#ffdea6] transition-all duration-300 text-gray-900 w-full sm:w-auto">
                       <Sparkles className="w-5 h-5 mr-2" />
                       Generate Avatars
                     </div>
