@@ -58,7 +58,10 @@ const BlurText: React.FC<BlurTextProps> = ({
     [direction]
   );
 
-  const defaultTo = useMemo(() => ({ filter: "blur(0px)", opacity: 1, y: 0 }), []);
+  const defaultTo = useMemo(
+    () => ({ filter: "blur(0px)", opacity: 1, y: 0 }),
+    []
+  );
 
   const from = animationFrom ?? defaultFrom;
   const to = animationTo ?? defaultTo;
@@ -72,7 +75,7 @@ const BlurText: React.FC<BlurTextProps> = ({
       transition={{
         duration,
         delay: delay / 1000,
-        ease: easing,
+        ease: "easeInOut",
       }}
       onAnimationComplete={onAnimationComplete}
     >
