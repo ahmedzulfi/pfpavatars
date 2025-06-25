@@ -33,24 +33,40 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-2">Product</h4>
             <ul className="space-y-1">
-              <li><Link href="#">Before & After</Link></li>
-              <li><Link href="#">How It Works</Link></li>
-              <li><Link href="#">Pricing</Link></li>
+              <li>
+                <Link href="#">Before & After</Link>
+              </li>
+              <li>
+                <Link href="#">How It Works</Link>
+              </li>
+              <li>
+                <Link href="#">Pricing</Link>
+              </li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-2">Company</h4>
             <ul className="space-y-1">
-              <li><Link href="#">About</Link></li>
-              <li><Link href="#">Contact</Link></li>
+              <li>
+                <Link href="#">About</Link>
+              </li>
+              <li>
+                <Link href="#">Contact</Link>
+              </li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-2">Legal</h4>
             <ul className="space-y-1">
-              <li><Link href="#">Terms</Link></li>
-              <li><Link href="#">Privacy</Link></li>
-              <li><Link href="#">Cookies</Link></li>
+              <li>
+                <Link href="#">Terms</Link>
+              </li>
+              <li>
+                <Link href="#">Privacy</Link>
+              </li>
+              <li>
+                <Link href="#">Cookies</Link>
+              </li>
             </ul>
           </div>
           <div>
@@ -61,7 +77,10 @@ export default function Footer() {
 
         <div className="text-center py-4 text-xs text-gray-500 border-t">
           © 2025 pfpavtars All rights reserved. <br />
-          Made by <Link href="https://liinks.co/charlie" className="underline">Charlie</Link> from <Link href="https://liinks.co" className="underline">Liinks</Link>
+          Made by{" "}
+          <Link href="https://x.com/AhmedZulfiqr" className="underline">
+            Ahmed Zulfiqar
+          </Link>{" "}
         </div>
       </footer>
     </div>

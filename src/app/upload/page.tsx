@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useRef } from "react";
 import {
   Upload,
@@ -16,26 +15,27 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
 import Backgroundgrad from "@/components/Backgroundgrad";
+import { useAuth } from "@/context/Authcontext";
 
 export default function GetStarted() {
-  // Change state from array to single file or null
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string>("");
   const [currentStep, setCurrentStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const creditsRequired = 10;
   const router = useRouter();
+  const { user } = useAuth();
+  const creditsRequired = 10;
+
   const avatarStyles = [
     {
       id: "professional",
-      name: "Professional",
+      name: "cyberpunk",
       description: "Clean, business-ready avatars",
     },
     {
       id: "artistic",
-      name: "Artistic",
+      name: "anime",
       description: "Creative and stylized portraits",
     },
   ];
@@ -58,17 +58,33 @@ export default function GetStarted() {
   };
 
   const handleGenerate = async () => {
-    setIsGenerating(true);
+    if (!uploadedImage || !selectedStyle) return;
 
-    // Simulate API call - replace with your actual generation logic
     try {
-      // Your avatar generation API call would go here
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulated delay
+      setIsGenerating(true);
+
+      const formData = new FormData();
+      formData.append("image", uploadedImage);
+      formData.append("style", selectedStyle);
+
+      const idToken = await user?.getIdToken();
+      const res = await fetch("http://localhost:5000/avatars/generate", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: formData,
+      });
+
+      const data = await res.json();
+      console.log("Generated Image URL:", data.avatar);
+
+      // Navigate to result pagelocalStorage.setItem("generated_avatar", data.avatar);
+      localStorage.setItem("generated_avatar", data.avatar);
 
       router.push("/result");
     } catch (error) {
-      console.error("Generation failed:", error);
-      // Handle error appropriately
+      console.error("Error generating avatar:", error);
     } finally {
       setIsGenerating(false);
     }
@@ -230,11 +246,11 @@ export default function GetStarted() {
                               <div
                                 key={style.id}
                                 className={`cursor-pointer transition-all rounded-lg border shadow-sm p-4 sm:p-6 ${
-                                  selectedStyle === style.id
+                                  selectedStyle === style.name
                                     ? "ring-2 ring-[#ffedc9] bg-[#d4c4a8]/10 border-[#ffdea6]"
                                     : "bg-white/80 border border-gray-200 hover:bg-white"
                                 }`}
-                                onClick={() => setSelectedStyle(style.id)}
+                                onClick={() => setSelectedStyle(style.name)}
                               >
                                 <div className="aspect-square bg-gray-100 rounded-lg mb-3 sm:mb-4 flex items-center justify-center">
                                   <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />
@@ -285,7 +301,7 @@ export default function GetStarted() {
                                   <span className="inline-block px-2 py-1 text-xs font-semibold rounded bg-[#ffedc9] text-gray-900">
                                     {
                                       avatarStyles.find(
-                                        (s) => s.id === selectedStyle
+                                        (s) => s.name === selectedStyle
                                       )?.name
                                     }
                                   </span>

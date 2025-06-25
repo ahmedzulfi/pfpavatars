@@ -1,7 +1,8 @@
 import React from "react";
 import { Sparkles, Palette, Shield, Zap, Layers, Users } from "lucide-react";
 import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
-
+import image1 from "../../image/avatar1.jpg";
+import Image from "next/image";
 const features = [
   {
     icon: <Sparkles className="w-6 h-6 text-yellow-700" />,
@@ -45,8 +46,8 @@ const Features: React.FC = () => {
   return (
     <PageTransitionWrapper>
       <section id="features" className="py-12 md:py-20 relative min-h-screen">
-        <div className="container max-w-[90%] w-full md:w-[1250px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-10 sm:mt-15 mt-15">
+        <div className="container max-w-[90%] w-full md:w-[1250px] mx-auto px-0 sm:px-0 lg:px-0">
+          <div className=" mx-auto text-center mb-10 sm:mb-10 sm:mt-15 mt-15">
             <span
               className="inline-block px-4 py-1.5 mb-4 text-sm font-medium rounded-full"
               style={{ backgroundColor: "#FFEDC9", color: "#3D2A0D" }}
@@ -62,26 +63,66 @@ const Features: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="p-5 sm:p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
-              >
-                <div
-                  className="w-12 h-12 flex items-center justify-center rounded-full mb-5"
-                  style={{ backgroundColor: "#FFEDC9" }}
-                >
-                  {feature.icon}
+          <div className="bg-white min-h-screen p-8">
+            <div className="mx-auto space-y-12">
+              {/* Step 1: Upload selfie */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl font-bold text-gray-900">1.</span>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      Upload selfie
+                    </h2>
+                  </div>
+                  <p className="text-gray-600 text-lg leading-relaxed">
+                    Select your favorite selfies (necessary selfie work), no
+                    blurry needed.
+                  </p>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-dark-950 mb-2 text-gray-950">
-                  {feature.title}
-                </h3>
-                <p className="text-sm sm:text-base text-gray-600">
-                  {feature.description}
-                </p>
+                <div className="bg-gray-100 rounded-2xl  h-60 md:h-110  border border-gray-200"></div>
               </div>
-            ))}
+
+              {/* Step 2: AI generates */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="bg-gray-100 rounded-2xl  h-60 md:h-110 border border-gray-200 flex items-center justify-center order-2 md:order-1">
+                  <div className="w-full h-full bg-gray-300 rounded-full">
+                    <Image
+                      alt=""
+                      src={image1}
+                      className="- w-full h-full"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-4 md:order-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl font-bold text-gray-900">2.</span>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      AI generates
+                    </h2>
+                  </div>
+                  <p className="text-gray-600 text-lg leading-relaxed">
+                    Magic headshots created in seconds. Explore unique,
+                    high-quality styles.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3: Download */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl font-bold text-gray-900">3.</span>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      Download
+                    </h2>
+                  </div>
+                  <p className="text-gray-600 text-lg leading-relaxed">
+                    Choose your favorites, download instantly, and use anywhere.
+                  </p>
+                </div>
+                <div className="bg-gray-100 rounded-2xl h-60 md:h-110 border border-gray-200"></div>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -6,6 +6,7 @@ import "../styles/globals.css";
 import Header from "@/components/Header";
 import LenisProvider from "@/components/animations/Lenisprovider";
 import { AnimatePresence } from "framer-motion";
+import { AuthProvider } from "@/context/Authcontext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +27,13 @@ export default function RootLayout({
     <html lang="en">
       <LenisProvider>
         <AnimatePresence>
-          {" "}
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col w-full items-center justify-center`}
           >
-            <Header />
-            {children}
+            <AuthProvider>
+              <Header />
+              {children} {/* ✅ Now inside AuthProvider */}
+            </AuthProvider>
           </body>
         </AnimatePresence>
       </LenisProvider>

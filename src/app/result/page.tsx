@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle, Download, Home, Link } from "lucide-react";
+import { CheckCircle, Download, Home } from "lucide-react";
 import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
 import image1 from "../../image/avatar1.jpg";
 import image2 from "../../image/ez.jpg";
@@ -14,6 +14,7 @@ import {
 } from "@/components/ImageComparision";
 
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 export default function ResultPage() {
   const router = useRouter();
   const [selectedStyle, setSelectedStyle] = useState(0);
@@ -22,27 +23,27 @@ export default function ResultPage() {
       id: 1,
       name: "3D Cartoon",
       description: "Smooth look with soft shading and expressive features.",
-      preview: "/placeholder.svg?height=200&width=200",
     },
     {
       id: 2,
       name: "Realistic",
       description: "Professional and lifelike appearance.",
-      preview: "/placeholder.svg?height=200&width=200",
     },
     {
       id: 3,
       name: "Minimalist",
       description: "Clean lines with simple, modern aesthetic.",
-      preview: "/placeholder.svg?height=200&width=200",
     },
     {
       id: 4,
       name: "Artistic",
       description: "Creative and stylized interpretation.",
-      preview: "/placeholder.svg?height=200&width=200",
     },
   ];
+  const avatarUrl =
+    typeof window !== "undefined"
+      ? localStorage.getItem("generated_avatar")
+      : null;
 
   return (
     <PageTransitionWrapper>
@@ -77,7 +78,7 @@ export default function ResultPage() {
                       <CardContent className="p-0 h-full">
                         <div className="relative h-full overflow-hidden">
                           <Image
-                            src={image1}
+                            src={avatarUrl ? avatarUrl : ""}
                             alt={style.name}
                             fill
                             className={`object-cover rounded-lg transition-transform duration-500 ease-out ${
@@ -132,7 +133,7 @@ export default function ResultPage() {
                       position="left"
                     />
                     <ImageComparisonImage
-                      src={image2.src}
+                      src={avatarUrl ? avatarUrl : ""}
                       alt="After"
                       position="right"
                     />
@@ -150,7 +151,7 @@ export default function ResultPage() {
                   className="group inline-flex items-center justify-center w-full rounded-lg border border-black/10 bg-gray-100/50 text-black text-sm font-medium py-3 hover:bg-gray-100 transition-all duration-200 hover:border-black/20 hover:shadow-md active:scale-[0.98]"
                 >
                   <Home className="w-4 h-4 mr-2 transition-transform duration-200 group-hover:-translate-x-0.5" />
-                  <span className="transition-all duration-200 group-hover:tracking-wide">
+                  <span className="transition-all duration-200 group-hover:tracking-wide text-black">
                     Back to Home
                   </span>
                 </Link>

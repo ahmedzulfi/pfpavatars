@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Backgroundgrad from "@/components/Backgroundgrad";
 import {
   Clock,
@@ -16,11 +16,15 @@ import Link from "next/link";
 import RecentAvatars from "@/components/RecentAvatars";
 import Credithistory from "@/components/Credithistory";
 import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
-
+import { ProtectedRoute } from "@/firebase/ProtectedRoute";
+import { useAuth } from "@/context/Authcontext";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/Firebase";
 export default function Dashboard() {
+  const { user, loading, backendUser } = useAuth();
+
   return (
-    <PageTransitionWrapper>
-      {" "}
+    <ProtectedRoute>
       <main className=" min-h-screen  relative flex flex-col justify-center items-center bg-[#f5f5f5] text-background w-full font-[family-name:var(--font-geist-sans)]">
         <div className="relative z-20 min-h-screen flex justify-center w-full  backdrop-blur-sm  ">
           <section className="relative pt-20  w-[1270px] max-w-[90%] min-h-[80%] overflow-visible ">
@@ -29,7 +33,7 @@ export default function Dashboard() {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
                   <div>
                     <h1 className="text-2xl sm:text-3xl font-bold mb-2">
-                      Welcome back, Ahmed! ✨
+                      Welcome back {backendUser && backendUser.display_name}!
                     </h1>
                     <p className="text-gray-700 text-base sm:text-lg">
                       Ready to create some amazing avatars today?
@@ -53,6 +57,6 @@ export default function Dashboard() {
           </section>
         </div>
       </main>
-    </PageTransitionWrapper>
+    </ProtectedRoute>
   );
 }

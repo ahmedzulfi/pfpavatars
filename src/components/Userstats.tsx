@@ -1,8 +1,10 @@
+import { useAuth } from "@/context/Authcontext";
 import { Coins, Plus, User, User2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 function Userstats() {
+  const { user, loading, backendUser } = useAuth();
   return (
     <div className="md:grid hidden grid-cols-1 md:grid-cols-3 gap-6 mb-4 ">
       <div className="bg-white/60 backdrop-blur-sm shadow-xs border border-black/7 rounded-xl">
@@ -15,7 +17,9 @@ function Userstats() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Welcome</p>
-              <h3 className="font-semibold text-gray-900">Ahmed Zulfiqar </h3>
+              <h3 className="font-semibold text-gray-900">
+                {backendUser && backendUser.display_name}{" "}
+              </h3>
             </div>
           </div>
         </div>
@@ -31,7 +35,10 @@ function Userstats() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Available Credits</p>
-              <h3 className="font-semibold text-gray-900">34</h3>
+              <h3 className="font-semibold text-gray-900">
+                {" "}
+                {backendUser && backendUser.credits_remaining}{" "}
+              </h3>
             </div>
             <div className="ml-auto">
               <Link href={"/pricing"}>
@@ -54,7 +61,10 @@ function Userstats() {
             </div>
             <div>
               <p className="text-sm text-gray-500">Total Avatars</p>
-              <h3 className="font-semibold text-gray-900">72 Avatars</h3>
+              <h3 className="font-semibold text-gray-900">
+                {" "}
+                {backendUser && backendUser.total_avatars_generated}{" "}
+              </h3>
             </div>
             <div className="ml-auto">
               <Link href={"/pricing"}>

@@ -1,80 +1,169 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
-import image1 from "../image/avatar1.jpg";
 import Link from "next/link";
-import { Menu, X, Search, Home, Package, Building, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+import {
+  Menu,
+  X,
+  Search,
+  Package,
+  Home,
+  LogOut,
+  CreditCard,
+} from "lucide-react";
+import { useAuth } from "@/context/Authcontext";
+import { auth } from "@/Firebase";
+
+import image1 from "../image/avatar1.jpg";
 import PageTransitionWrapper from "./animations/PageTransitionWrapper";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
+  const { user, backendUser } = useAuth();
 
   const menuItems = [
     { name: "Pricing", href: "/pricing", icon: Search },
     { name: "Features", href: "/features", icon: Package },
+    { name: "Reviews", href: "/reviews", icon: Package },
   ];
+
+  const logoutHandler = async () => {
+    await auth.signOut();
+    router.push("/");
+  };
+
+  const renderUserPopover = () => (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="ghost" className="rounded-full p-0 h-10 w-10">
+          <Avatar>
+            <AvatarImage
+              src={backendUser?.profile_picture || "/default-avatar.png"}
+              alt={backendUser?.display_name || "U"}
+            />
+            <AvatarFallback>
+              {backendUser?.display_name?.charAt(0) || "U"}
+            </AvatarFallback>
+          </Avatar>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 mr-4 mt-2">
+        <div className="flex flex-col space-y-3">
+          <div className="flex items-center space-x-3">
+            <Avatar>
+              <AvatarImage
+                src={backendUser?.profile_picture || "/default-avatar.png"}
+                alt={backendUser?.display_name || "U"}
+              />
+              <AvatarFallback>
+                {backendUser?.display_name?.charAt(0) || "U"}
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="text-sm font-semibold">
+                {backendUser?.display_name}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {backendUser?.email}
+              </p>
+            </div>
+          </div>
+          <div className="text-sm text-muted-foreground">
+            Credits:{" "}
+            <span className="font-semibold text-black">
+              {backendUser?.credits_remaining}
+            </span>
+          </div>
+          <Button
+            variant="outline"
+            className="w-full bg-white flex items-center justify-start gap-2 text-sm"
+            onClick={() => router.push("/pricing")}
+          >
+            <CreditCard size={16} /> Purchase Credits
+          </Button>
+          <Button
+            className="w-full flex items-center justify-start gap-2 text-sm"
+            onClick={logoutHandler}
+          >
+            <LogOut size={16} /> Logout
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
 
   return (
     <>
       {/* Header */}
       <header className="w-full fixed top-0 z-50 bg-white border-b border-gray-100">
         <PageTransitionWrapper>
-          <div className="w-[1270px] max-w-[90%] mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              {/* Logo */}
-              <Link href="/" className="flex items-center space-x-3">
-                <Image
-                  src={image1}
-                  alt="AvatarSnap"
-                  width={40}
-                  height={40}
-                  className="rounded-lg"
-                />
-                <span className="text-xl font-bold text-black">AvatarSnap</span>
-              </Link>
+          <div className=" max-w-[90%] w-[1250px] mx-auto  py-4 flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <span className="text-xl font-bold text-black">AvatarSnap</span>
+            </Link>
 
-              {/* Desktop Navigation */}
-              <nav className="hidden lg:flex items-center space-x-8">
-                {menuItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-gray-700 hover:text-black font-medium transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {menuItems.map((item) => (
                 <Link
-                  href="/dashboard"
+                  key={item.name}
+                  href={item.href}
                   className="text-gray-700 hover:text-black font-medium transition-colors"
                 >
-                  Dashboard
+                  {item.name}
                 </Link>
-              </nav>
-
-              {/* Desktop CTA */}
-              <div className="hidden lg:block">
-                <Link href="/upload">
-                  <div className="bg-black text-white px-6 py-2.5 rounded-full font-medium hover:bg-gray-800 transition-colors cursor-pointer">
-                    Get Started
-                  </div>
-                </Link>
-              </div>
-
-              {/* Mobile Menu Button */}
-              <button
-                className="lg:hidden flex items-center justify-center p-2 rounded-md"
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                aria-label="Toggle Sidebar"
+              ))}
+              <Link
+                href="/dashboard"
+                className="text-gray-700 hover:text-black font-medium transition-colors"
               >
-                {sidebarOpen ? <X size={24} /> : <Menu size={24} className="text-black" />}
-              </button>
+                Dashboard
+              </Link>
+            </nav>
+
+            {/* Right-side */}
+            <div className="hidden lg:block">
+              {user && backendUser ? (
+                renderUserPopover()
+              ) : (
+                <Link href="/upload">
+                  <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-6 py-2.5">
+                    Get Started
+                  </Button>
+                </Link>
+              )}
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden flex items-center justify-center p-2 rounded-md"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-label="Toggle Sidebar"
+            >
+              {sidebarOpen ? (
+                <X size={24} />
+              ) : (
+                <Menu size={24} className="text-black" />
+              )}
+            </button>
           </div>
         </PageTransitionWrapper>
       </header>
 
-      {/* Mobile Overlay (click to close) */}
+      {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/30 z-40 lg:hidden"
@@ -89,7 +178,6 @@ function Sidebar() {
         } flex flex-col`}
       >
         <PageTransitionWrapper>
-          {/* Logo Section with Close Button */}
           <div className="p-6 border-b border-gray-100 flex items-center justify-between">
             <Link
               href="/"
@@ -105,7 +193,6 @@ function Sidebar() {
               />
               <span className="text-xl font-bold text-black">AvatarSnap</span>
             </Link>
-            {/* 🔴 Close Button */}
             <button
               onClick={() => setSidebarOpen(false)}
               className="p-2 text-gray-500 hover:text-black"
@@ -115,49 +202,72 @@ function Sidebar() {
             </button>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 px-6 py-8">
-            <ul className="space-y-2">
-              {menuItems.map((item) => {
-                const IconComponent = item.icon;
-                return (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setSidebarOpen(false)}
-                      className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200 group"
-                    >
-                      <IconComponent
-                        size={20}
-                        className="text-gray-500 group-hover:text-gray-700"
-                      />
-                      <span className="text-lg font-medium">{item.name}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-
-          {/* Bottom Links */}
-          <div className="p-6 border-t border-gray-100">
+          <nav className="flex-1 px-6 py-8 space-y-2">
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setSidebarOpen(false)}
+                  className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200 group"
+                >
+                  <Icon
+                    size={20}
+                    className="text-gray-500 group-hover:text-gray-700"
+                  />
+                  <span className="text-lg font-medium">{item.name}</span>
+                </Link>
+              );
+            })}
             <Link
               href="/dashboard"
               onClick={() => setSidebarOpen(false)}
-              className="block w-full mb-3"
+              className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200"
             >
-              <div className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors duration-200">
-                <Home size={20} className="text-gray-500" />
-                <span className="text-lg font-medium">Dashboard</span>
-              </div>
+              <Home size={20} className="text-gray-500" />
+              <span className="text-lg font-medium">Dashboard</span>
             </Link>
+            {user && backendUser && (
+              <div className="mt-4 space-y-2 flex w-full border-t-1 justify-between items-center">
+                <div className="flex items-center space-x-3 px-4 py-5   -lg">
+                  <Avatar>
+                    <AvatarImage
+                      src={backendUser.profile_picture || "/default-avatar.png"}
+                    />
+                    <AvatarFallback>
+                      {backendUser.display_name?.charAt(0) || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="text-black">
+                    <p className="text-xs text-muted-foreground">
+                      {backendUser.email}
+                    </p>
+                    <p className="text-sm font-medium">
+                      Credits: {backendUser.credits_remaining}
+                    </p>
+                  </div>
+                </div>
 
-            <Link href="/upload" onClick={() => setSidebarOpen(false)}>
-              <div className="bg-black text-white px-6 py-3 rounded-full text-center font-medium hover:bg-gray-800 transition-colors duration-200">
-                Get Started
+                <Button
+                  className=" flex items-center me-4 justify-start gap-2 text-sm"
+                  onClick={logoutHandler}
+                >
+                  <LogOut size={16} /> Logout
+                </Button>
               </div>
-            </Link>
-          </div>
+            )}
+          </nav>
+
+          {!user && (
+            <div className="p-6 border-t border-gray-100">
+              <Link href="/upload" onClick={() => setSidebarOpen(false)}>
+                <div className="bg-black text-white px-6 py-3 rounded-full text-center font-medium hover:bg-gray-800 transition-colors duration-200">
+                  Get Started
+                </div>
+              </Link>
+            </div>
+          )}
         </PageTransitionWrapper>
       </aside>
     </>
