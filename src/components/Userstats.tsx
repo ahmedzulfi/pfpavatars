@@ -6,8 +6,9 @@ import React from "react";
 function Userstats() {
   const { user, loading, backendUser } = useAuth();
   return (
-    <div className="md:grid hidden grid-cols-1 md:grid-cols-3 gap-6 mb-4 ">
-      <div className="bg-white/60 backdrop-blur-sm shadow-xs border border-black/7 rounded-xl">
+    <div className="md:grid hidden grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+      {/* Card 1: Welcome */}
+      <div className="bg-neutral-950/60 backdrop-blur-md shadow-sm border border-neutral-900/60 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">
@@ -16,16 +17,17 @@ function Userstats() {
               </div>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Welcome</p>
-              <h3 className="font-semibold text-gray-900">
-                {backendUser && backendUser.display_name}{" "}
+              <p className="text-sm text-neutral-400">Welcome</p>
+              <h3 className="font-semibold text-white">
+                {backendUser && backendUser.display_name}
               </h3>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white/60 backdrop-blur-sm shadow-xs  border border-black/7 rounded-xl">
+      {/* Card 2: Credits */}
+      <div className="bg-neutral-950/60 backdrop-blur-md shadow-sm border border-neutral-900/60 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">
@@ -34,15 +36,14 @@ function Userstats() {
               </div>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Available Credits</p>
-              <h3 className="font-semibold text-gray-900">
-                {" "}
-                {backendUser && backendUser.credits_remaining}{" "}
+              <p className="text-sm text-neutral-400">Available Credits</p>
+              <h3 className="font-semibold text-white">
+                {backendUser && backendUser.credits_remaining}
               </h3>
             </div>
             <div className="ml-auto">
-              <Link href={"/pricing"}>
-                <div className="bg-[#ffedc9] px-3 py-2 font-medium  text-xs rounded-md hover:bg-[#ffdea6] text-gray-900">
+              <Link href="/pricing">
+                <div className="bg-[#ffedc9] text-black px-3 py-2 font-medium text-xs rounded-md hover:bg-[#ffdea6] transition">
                   Buy More
                 </div>
               </Link>
@@ -51,7 +52,8 @@ function Userstats() {
         </div>
       </div>
 
-      <div className="bg-white/60 backdrop-blur-sm shadow-xs  border border-black/7 rounded-xl">
+      {/* Card 3: Total Avatars */}
+      <div className="bg-neutral-950/60 backdrop-blur-md shadow-sm border border-neutral-900/60 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">
@@ -60,15 +62,14 @@ function Userstats() {
               </div>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total Avatars</p>
-              <h3 className="font-semibold text-gray-900">
-                {" "}
-                {backendUser && backendUser.total_avatars_generated}{" "}
+              <p className="text-sm text-neutral-400">Total Avatars</p>
+              <h3 className="font-semibold text-white">
+                {backendUser && backendUser.total_avatars_generated}
               </h3>
             </div>
             <div className="ml-auto">
-              <Link href={"/pricing"}>
-                <div className="bg-[#ffedc9] px-3 py-2 font-medium inline-flex  text-xs rounded-md hover:bg-[#ffdea6] text-gray-900">
+              <Link href="/pricing">
+                <div className="bg-[#ffedc9] text-black px-3 py-2 font-medium text-xs inline-flex items-center rounded-md hover:bg-[#ffdea6] transition">
                   New <Plus className="w-4 h-4 ml-1" />
                 </div>
               </Link>

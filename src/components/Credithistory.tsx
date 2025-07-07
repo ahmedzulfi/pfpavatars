@@ -38,25 +38,25 @@ function Credithistory() {
   }, [user]);
 
   return (
-    <div className="md:col-span-2 lg:col-span-2 xl:col-span-2 h-max bg-white/60 backdrop-blur-sm shadow-xs border border-black/7 rounded-xl px-6 py-4">
+    <div className="md:col-span-2 lg:col-span-2 xl:col-span-2 h-max bg-neutral-950/60 backdrop-blur-sm shadow-sm border border-neutral-900/60 rounded-xl px-6 py-4">
       <div className="mb-5 pt-3">
-        <div className="text-lg flex items-center">
-          <Clock className="w-5 h-5 mr-2" />
+        <div className="text-lg flex items-center text-white">
+          <Clock className="w-5 h-5 mr-2 text-white" />
           Credit History
         </div>
-        <p className="text-xs text-gray-500">Recent credit transactions</p>
+        <p className="text-xs text-neutral-400">Recent credit transactions</p>
       </div>
 
       <div>
         <div className="space-y-3 max-h-64 overflow-y-auto">
           {history.length === 0 && (
-            <div className="text-sm text-gray-500 text-center">No history available</div>
+            <div className="text-sm text-neutral-400 text-center">No history available</div>
           )}
 
           {history.map((transaction) => (
             <div
               key={transaction.id}
-              className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+              className="flex items-center justify-between p-3 bg-neutral-950 rounded-lg"
             >
               <div className="flex items-center space-x-3">
                 <div
@@ -65,15 +65,15 @@ function Credithistory() {
                   }`}
                 />
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-white">
                     {transaction.description}
                   </p>
-                  <p className="text-xs text-gray-500">{transaction.date}</p>
+                  <p className="text-xs text-neutral-400">{transaction.date}</p>
                 </div>
               </div>
               <div
                 className={`text-sm font-semibold ${
-                  transaction.amount > 0 ? "text-green-600" : "text-red-600"
+                  transaction.amount > 0 ? "text-green-400" : "text-red-400"
                 }`}
               >
                 {transaction.amount > 0 ? "+" : ""}
@@ -85,7 +85,7 @@ function Credithistory() {
 
         <div className="mt-3 pt-2">
           <Link href={"/purchase"}>
-            <div className="w-full justify-center items-center py-3 rounded-lg inline-flex bg-[#ffedc9] hover:bg-[#ffdea6] transition-all duration-305 text-gray-900">
+            <div className="w-full justify-center items-center py-3 rounded-lg inline-flex bg-[#ffedc9] hover:bg-[#ffdea6] transition-all duration-300 text-gray-900 font-semibold">
               <CreditCard className="w-4 h-4 mr-2" />
               Purchase More Credits
             </div>

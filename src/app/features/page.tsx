@@ -3,6 +3,7 @@ import { Sparkles, Palette, Shield, Zap, Layers, Users } from "lucide-react";
 import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
 import image1 from "../../image/avatar1.jpg";
 import Image from "next/image";
+import AvatarGallery from "@/components/Examples";
 const features = [
   {
     icon: <Sparkles className="w-6 h-6 text-yellow-700" />,
@@ -45,7 +46,7 @@ const features = [
 const Features: React.FC = () => {
   return (
     <PageTransitionWrapper>
-      <section id="features" className="py-12 md:py-20 relative min-h-screen">
+      {/*  <section id="features" className="py-12 md:py-20 relative min-h-screen">
         <div className="container max-w-[90%] w-full md:w-[1250px] mx-auto px-0 sm:px-0 lg:px-0">
           <div className=" mx-auto text-center mb-10 sm:mb-10 sm:mt-15 mt-15">
             <span
@@ -65,7 +66,6 @@ const Features: React.FC = () => {
 
           <div className="bg-white min-h-screen p-8">
             <div className="mx-auto space-y-12">
-              {/* Step 1: Upload selfie */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -82,15 +82,10 @@ const Features: React.FC = () => {
                 <div className="bg-gray-100 rounded-2xl  h-60 md:h-110  border border-gray-200"></div>
               </div>
 
-              {/* Step 2: AI generates */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="bg-gray-100 rounded-2xl  h-60 md:h-110 border border-gray-200 flex items-center justify-center order-2 md:order-1">
                   <div className="w-full h-full bg-gray-300 rounded-full">
-                    <Image
-                      alt=""
-                      src={image1}
-                      className="- w-full h-full"
-                    />
+                    <Image alt="" src={image1} className="- w-full h-full" />
                   </div>
                 </div>
                 <div className="space-y-4 md:order-2">
@@ -107,7 +102,6 @@ const Features: React.FC = () => {
                 </div>
               </div>
 
-              {/* Step 3: Download */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -126,7 +120,6 @@ const Features: React.FC = () => {
           </div>
         </div>
 
-        {/* Decorative background blobs */}
         <div
           className="absolute top-1/2 left-0 w-64 h-64 rounded-full opacity-30 blur-3xl -translate-y-1/2 -translate-x-1/2"
           style={{ backgroundColor: "#FFEDC9" }}
@@ -135,7 +128,8 @@ const Features: React.FC = () => {
           className="absolute bottom-0 right-0 w-96 h-96 rounded-full opacity-30 blur-3xl"
           style={{ backgroundColor: "#FFEDC9" }}
         ></div>
-      </section>
+      </section>*/}
+      <AvatarGallery />
     </PageTransitionWrapper>
   );
 };
