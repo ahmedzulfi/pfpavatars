@@ -17,7 +17,7 @@ import RecentAvatars from "@/components/RecentAvatars";
 import Credithistory from "@/components/Credithistory";
 import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
 import { ProtectedRoute } from "@/firebase/ProtectedRoute";
-import { useAuth } from "@/context/Authcontext";
+import { useAuth } from "../../context/Authcontext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/Firebase";
 export default function Dashboard() {

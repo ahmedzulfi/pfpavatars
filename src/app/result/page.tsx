@@ -40,11 +40,8 @@ export default function ResultPage() {
       description: "Creative and stylized interpretation.",
     },
   ];
-  const avatarUrl =
-    typeof window !== "undefined"
-      ? localStorage.getItem("generated_avatar")
-      : null;
-
+  const avatarUrl = localStorage.getItem("generated_avatar");
+  const uploadedimg = localStorage.getItem("uploaded_avatar");
   return (
     <PageTransitionWrapper>
       <main className="min-h-screen pt-25 bg-[#f5f5f5] text-gray-900 px-4 sm:px-6 lg:px-8 py-12">
@@ -128,7 +125,7 @@ export default function ResultPage() {
                 <div className="flex flex-col justify-center h-full">
                   <ImageComparison className="aspect-[10/10] w-full rounded-lg border border-zinc-200">
                     <ImageComparisonImage
-                      src={image1.src}
+                      src={uploadedimg ? uploadedimg : ""}
                       alt="Before"
                       position="left"
                     />
