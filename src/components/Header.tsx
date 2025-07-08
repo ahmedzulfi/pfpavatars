@@ -34,9 +34,9 @@ function Sidebar() {
   const { user, backendUser } = useAuth();
 
   const menuItems = [
-    { name: "Pricing", href: "/pricing", icon: Search },
+    { name: "Pricing", href: "#pricing", icon: Search },
     { name: "Features", href: "/features", icon: Package },
-    { name: "Reviews", href: "/reviews", icon: Package },
+    { name: "Reviews", href: "#reviews", icon: Package },
   ];
 
   const logoutHandler = async () => {
@@ -47,54 +47,64 @@ function Sidebar() {
   const renderUserPopover = () => (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="rounded-full p-0 h-10 w-10">
-          <Avatar>
-            <AvatarImage
-              src={backendUser?.profile_picture || "/default-avatar.png"}
-              alt={backendUser?.display_name || "U"}
-            />
-            <AvatarFallback>
-              {backendUser?.display_name?.charAt(0) || "U"}
+        <Button className="rounded-full p-0 h-8 w-8  ">
+          <Avatar className="bg-neutral-900 text-white focus-visible:ring-0">
+            {backendUser?.profile_picture ? (
+              <AvatarImage
+                src={backendUser.profile_picture}
+                alt={backendUser.display_name || "U"}
+              />
+            ) : null}
+            <AvatarFallback className="bg-neutral-950/30 text-white">
+              {backendUser?.display_name?.charAt(0).toUpperCase() || "U"}
             </AvatarFallback>
           </Avatar>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-64 mr-4 mt-2 bg-neutral-900 border border-neutral-700 text-white">
-        <div className="flex flex-col space-y-3">
-          <div className="flex items-center space-x-3">
-            <Avatar>
-              <AvatarImage
-                src={backendUser?.profile_picture || "/default-avatar.png"}
-                alt={backendUser?.display_name || "U"}
-              />
-              <AvatarFallback>
-                {backendUser?.display_name?.charAt(0) || "U"}
+
+      <PopoverContent className="w-64 mr-4 mt-2 bg-black border border-neutral-900/30 text-white shadow-xl">
+        <div className="flex flex-col space-y-4">
+          {/* User Info */}
+          <div className="flex items-center gap-3">
+            <Avatar className="bg-black text-white">
+              {backendUser?.profile_picture ? (
+                <AvatarImage
+                  src={backendUser.profile_picture}
+                  alt={backendUser.display_name || "U"}
+                />
+              ) : null}
+              <AvatarFallback className="bg-neutral-950/30 text-white">
+                {backendUser?.display_name?.charAt(0).toUpperCase() || "U"}
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-semibold">
+              <p className="text-sm font-semibold text-white">
                 {backendUser?.display_name}
               </p>
-              <p className="text-xs text-neutral-400">
-                {backendUser?.email}
-              </p>
+              <p className="text-xs text-zinc-400">{backendUser?.email}</p>
             </div>
           </div>
-          <div className="text-sm text-neutral-400">
+
+          {/* Credits */}
+          <div className="text-sm text-zinc-400">
             Credits:{" "}
             <span className="font-semibold text-white">
               {backendUser?.credits_remaining}
             </span>
           </div>
+
+          {/* Purchase Button */}
           <Button
             variant="outline"
-            className="w-full bg-black border-neutral-700 text-white hover:bg-neutral-800 flex items-center justify-start gap-2 text-sm"
+            className="w-full border-neutral-900/30 bg-neutral-950/30 hover:bg-neutral-950 text-white text-sm flex items-center justify-start gap-2"
             onClick={() => router.push("/pricing")}
           >
             <CreditCard size={16} /> Purchase Credits
           </Button>
+
+          {/* Logout Button */}
           <Button
-            className="w-full bg-neutral-800 hover:bg-neutral-700 text-white flex items-center justify-start gap-2 text-sm"
+            className="w-full border mt-0 border-neutral-900/30 bg-neutral-950/30 hover:bg-neutral-950 text-white text-sm flex items-center justify-start gap-2"
             onClick={logoutHandler}
           >
             <LogOut size={16} /> Logout
@@ -107,7 +117,7 @@ function Sidebar() {
   return (
     <>
       {/* Header */}
-      <header className="w-full fixed top-0 z-50 bg-black border-b border-neutral-800">
+      <header className="w-full fixed top-0 z-50 backdrop-blur-lg bg-[#000000cc] border-b border-neutral-800">
         <PageTransitionWrapper>
           <div className="max-w-[90%] w-[1250px] mx-auto py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center">
@@ -231,7 +241,7 @@ function Sidebar() {
                     <AvatarImage
                       src={backendUser.profile_picture || "/default-avatar.png"}
                     />
-                    <AvatarFallback>
+                    <AvatarFallback className="bg-neutral-950/30 text-white">
                       {backendUser.display_name?.charAt(0) || "U"}
                     </AvatarFallback>
                   </Avatar>

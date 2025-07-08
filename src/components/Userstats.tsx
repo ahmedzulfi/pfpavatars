@@ -6,9 +6,9 @@ import React from "react";
 function Userstats() {
   const { user, loading, backendUser } = useAuth();
   return (
-    <div className="md:grid hidden grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+    <div className="md:grid hidden grid-cols-1 md:grid-cols-3 gap-6 mb-7">
       {/* Card 1: Welcome */}
-      <div className="bg-neutral-950/60 backdrop-blur-md shadow-sm border border-neutral-900/60 rounded-xl">
+      <div className="bg-neutral-950/40 backdrop-blur-md shadow-sm border border-neutral-900/30 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">
@@ -27,7 +27,7 @@ function Userstats() {
       </div>
 
       {/* Card 2: Credits */}
-      <div className="bg-neutral-950/60 backdrop-blur-md shadow-sm border border-neutral-900/60 rounded-xl">
+      <div className="bg-neutral-950/40 backdrop-blur-md shadow-sm border border-neutral-900/30 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">
@@ -53,7 +53,7 @@ function Userstats() {
       </div>
 
       {/* Card 3: Total Avatars */}
-      <div className="bg-neutral-950/60 backdrop-blur-md shadow-sm border border-neutral-900/60 rounded-xl">
+      <div className="bg-neutral-950/40 backdrop-blur-md shadow-sm border border-neutral-900/30 rounded-xl">
         <div className="p-6">
           <div className="flex items-center">
             <div className="mr-4">

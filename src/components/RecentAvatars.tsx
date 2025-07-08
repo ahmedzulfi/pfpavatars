@@ -63,7 +63,7 @@ function RecentAvatars() {
   }, [user, loading]);
 
   return (
-    <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 border border-neutral-900/60 bg-neutral-950/60 backdrop-blur-sm shadow-sm rounded-xl md:px-6 px-3 py-6">
+    <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 border border-neutral-900/30 bg-neutral-950/40  backdrop-blur-sm shadow-sm rounded-xl md:px-6 px-3 py-6">
       <div className="flex flex-row items-center justify-between mb-6">
         <div>
           <div className="text-xl pb-1 text-white">Recent Avatar Generations</div>

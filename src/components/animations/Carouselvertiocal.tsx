@@ -11,12 +11,15 @@ import {
 
 export default function CarouselVertical() {
   return (
-    <div className="relative w-full H-FULL">
+    <div className="relative w-full h-[70%]">
       <div className="flex flex-col">
         <div
-          className={`w-full aspect-[10/10] rounded-lg border overflow-hidden `}
+          className={`w-full aspect-[10/10] rounded-lg  overflow-hidden pointer-events-auto `}
         >
-          <ImageComparison className="w-full h-full">
+       {   <ImageComparison
+            className="w-full h-full"
+            enableHover
+          >
             <ImageComparisonImage
               src={image1.src}
               alt="Before"
@@ -30,7 +33,7 @@ export default function CarouselVertical() {
             <ImageComparisonSlider className="w-2 bg-black/50 backdrop-blur-xs transition-colors hover:bg-black/80">
               <div className="absolute left-1/2 top-1/2 h-8 w-6 -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-black" />
             </ImageComparisonSlider>
-          </ImageComparison>
+          </ImageComparison>}
         </div>
       </div>
     </div>

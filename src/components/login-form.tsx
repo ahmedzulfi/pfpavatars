@@ -45,12 +45,14 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
 
   return (
     <div className={cn("flex flex-col gap-6")}>
-      <Card className="overflow-hidden p-0 w-full">
+      <Card className="overflow-hidden p-0 w-full bg-[#000000d0] border border-neutral-900/30 backdrop-blur-md shadow-sm rounded-xl">
         <CardContent className="grid p-0 md:grid-cols-1 w-full">
           <form className="p-6 py-9 md:p-8 w-full" onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
+                <h1 className="text-2xl font-bold text-[#fff]/90">
+                  Welcome back
+                </h1>
                 <p className="text-muted-foreground">Login to your account</p>
               </div>
 
@@ -59,24 +61,30 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
               )}
 
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-zinc-300 font-normal">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
                   required
                   value={email}
+                  className="text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800 "
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
               <div className="grid gap-3">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-zinc-300 font-normal">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
                   required
                   value={password}
+                  className="text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800 "
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -88,7 +96,7 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
                 Login
               </Button>
 
-              <div className="text-center text-sm">
+              <div className="text-center text-sm text-muted opacity-75">
                 Don&apos;t have an account?{" "}
                 <Link href="/signup" className="underline underline-offset-4">
                   Sign up

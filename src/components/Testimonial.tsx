@@ -61,12 +61,12 @@ const testimonials = [
 
 const Testimonials: React.FC = () => {
   return (
-    <section className="py-16 md:py-24 bg-black text-white relative overflow-hidden">
+    <section
+      className="py-16 md:py-24 bg-black text-white relative overflow-hidden"
+      id="reviews"
+    >
       <div className="container mx-auto max-w-[90%] w-full md:w-[1250px] px-4 sm:px-6 lg:px-2 relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="flex items-center justify-center w-max mx-auto px-4 py-1.5 mb-4 text-xs sm:text-sm font-medium rounded-full bg-yellow-100/10 text-[#ffedc9]">
-            Loved By Everyone
-          </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             What Our Users Say
           </h2>
@@ -80,7 +80,7 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-neutral-950/80 border border-neutral-800 rounded-xl shadow-md p-6 relative"
+              className="bg-neutral-950/80 border border-neutral-950/60 rounded-xl shadow-md p-6 relative"
             >
               <div className="flex items-center space-x-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (

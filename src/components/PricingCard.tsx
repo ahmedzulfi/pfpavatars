@@ -28,7 +28,7 @@ export default function PricingCard({
 }: PricingCardProps) {
   return (
     <div
-      className={`relative bg-neutral-950    transition-all rounded-xl 
+      className={`relative bg-neutral-950/60    transition-all rounded-xl 
       p-5 sm:p-8 flex flex-col justify-between 
       min-h-[390px] sm:min-h-[490px] w-full max-w-md mx-auto shadow-md`}
     >

@@ -25,7 +25,7 @@ export default function AvatarGallery() {
   ];
 
   return (
-    <div className="relative w-full  bg-black overflow-hidden b md:py-35 py-10">
+    <div className="relative w-full z-100 bg-black overflow-hidden b md:py-35 py-10">
       {/* Left & Right Gradients */}
       <div className="absolute top-0 left-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-r from-black to-transparent" />
       <div className="absolute top-0 right-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-l from-black to-transparent" />

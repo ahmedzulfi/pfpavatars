@@ -54,13 +54,16 @@ export default function Pricing() {
 
   return (
     <PageTransitionWrapper>
-      <main className="min-h-screen text-white w-full font-[family-name:var(--font-geist-sans)]">
+      {" "}
+      <div className="absolute top-0 left-0 w-[140px] h-[50px] rounded-full bg-gradient-to-tr from-[#ffedc9]/90 to-transparent blur-3xl z-0 opacity-15" />
+      {/* RIGHT Gradient */}
+      <div className="absolute bottom-[-150px] right-0 w-[240px] h-[250px] rounded-full bg-gradient-to-tr from-[#ffedc9]/10 via-[#facc15]/10 to-transparent blur-3xl z-0" />
+      <main
+        className="min-h-screen text-white w-full font-[family-name:var(--font-geist-sans)]"
+        id="pricing"
+      >
         <section className="max-w-[90%] w-full md:w-[1250px] mx-auto px-4 pt-16 md:pt-24 pb-16">
           <div className="text-center mb-12">
-            <span className="flex items-center justify-center w-max mx-auto px-4 py-1.5 mb-4 text-xs sm:text-sm font-medium rounded-full bg-yellow-100/10 text-[#ffedc9]">
-              Simple, Affordable Pricing
-            </span>
-
             <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white mb-4 leading-snug sm:leading-tight">
               Simple & Transparent.
             </h1>

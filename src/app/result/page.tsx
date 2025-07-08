@@ -21,10 +21,26 @@ export default function ResultPage() {
   const [selectedStyle, setSelectedStyle] = useState(0);
 
   const avatarStyles = [
-    { id: 1, name: "3D Cartoon", description: "Smooth look with soft shading and expressive features." },
-    { id: 2, name: "Realistic", description: "Professional and lifelike appearance." },
-    { id: 3, name: "Minimalist", description: "Clean lines with simple, modern aesthetic." },
-    { id: 4, name: "Artistic", description: "Creative and stylized interpretation." },
+    {
+      id: 1,
+      name: "3D Cartoon",
+      description: "Smooth look with soft shading and expressive features.",
+    },
+    {
+      id: 2,
+      name: "Realistic",
+      description: "Professional and lifelike appearance.",
+    },
+    {
+      id: 3,
+      name: "Minimalist",
+      description: "Clean lines with simple, modern aesthetic.",
+    },
+    {
+      id: 4,
+      name: "Artistic",
+      description: "Creative and stylized interpretation.",
+    },
   ];
 
   const avatarUrl = localStorage.getItem("generated_avatar");
@@ -35,13 +51,14 @@ export default function ResultPage() {
       <main className="min-h-screen pt-24 bg-black text-white px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-[90%] w-full md:w-[1250px] mx-auto">
           <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 bg-neutral-950/60 border border-zinc-900/60 backdrop-blur-md shadow-md rounded-xl px-4 sm:px-6 md:px-8 py-8">
-            <div className="flex flex-row items-center justify-between mb-6">
+            <div className="flex flex-row items-center justify-between mb-9">
               <div className="text-start">
                 <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
                   Your Avatars Are Ready!
                 </h1>
                 <p className="text-sm sm:text-base text-zinc-400 mt-1">
-                  Download and use your avatars anywhere — LinkedIn, X, or wherever you want to stand out.
+                  Download and use your avatars anywhere — LinkedIn, X, or
+                  wherever you want to stand out.
                 </p>
               </div>
             </div>
@@ -52,10 +69,10 @@ export default function ResultPage() {
                 {avatarStyles.map((style, index) => (
                   <Card
                     key={style.id}
-                    className={`group cursor-pointer transition-all duration-300 p-0 aspect-square transform hover:scale-[1.02] overflow-hidden ${
+                    className={` cursor-pointer transition-all duration-300 p-0 aspect-square  hover:scale-[1.001] overflow-hidden ${
                       selectedStyle === index
-                        ? "ring-2 ring-black-300/50 shadow-lg scale-[1.02] bg-zinc-800"
-                        : "hover:shadow-md hover:ring-1 hover:ring-zinc-700 bg-zinc-800"
+                        ? " shadow-lg scale-[1.001] border border-neutral-950/30"
+                        : "border border-neutral-950/30"
                     }`}
                     onClick={() => setSelectedStyle(index)}
                   >

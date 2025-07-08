@@ -69,16 +69,16 @@ export function SignupForm({
     return newErrors;
   };
 
-const handleNext = (e?: React.FormEvent) => {
-  if (e) e.preventDefault();
-  const stepErrors = validateStep(currentStep);
-  if (Object.keys(stepErrors).length > 0) {
-    setErrors(stepErrors);
-    return;
-  }
+  const handleNext = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const stepErrors = validateStep(currentStep);
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors(stepErrors);
+      return;
+    }
 
-  if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
-};
+    if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
+  };
 
   const handlePrevious = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
@@ -165,20 +165,28 @@ const handleNext = (e?: React.FormEvent) => {
         return (
           <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-2xl font-bold">Let's get started</h1>
+              <h1 className="text-2xl font-bold text-[#fff]/90">
+                Let's get started
+              </h1>
               <p className="text-muted-foreground">Tell us who you are</p>
             </div>
 
             <div className="grid gap-4">
               <div className="grid gap-3">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="text-zinc-300 font-normal">
+                  Full Name
+                </Label>
                 <Input
                   id="name"
                   type="text"
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Enter your full name"
-                  className={errors.name ? "border-red-500" : ""}
+                  className={
+                    errors.name
+                      ? "border-red-500"
+                      : "text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800"
+                  }
                 />
                 {errors.name && (
                   <p className="text-sm text-red-500">{errors.name}</p>
@@ -186,14 +194,20 @@ const handleNext = (e?: React.FormEvent) => {
               </div>
 
               <div className="grid gap-3">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username" className="text-zinc-300 font-normal">
+                  Username
+                </Label>
                 <Input
                   id="username"
                   type="text"
                   value={form.username}
                   onChange={handleChange}
                   placeholder="Choose a unique username"
-                  className={errors.username ? "border-red-500" : ""}
+                  className={
+                    errors.username
+                      ? "border-red-500"
+                      : "text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800"
+                  }
                 />
                 {errors.username && (
                   <p className="text-sm text-red-500">{errors.username}</p>
@@ -207,20 +221,28 @@ const handleNext = (e?: React.FormEvent) => {
         return (
           <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-2xl font-bold">Account credentials</h1>
+              <h1 className="text-2xl font-bold text-[#fff]/90">
+                Account credentials
+              </h1>
               <p className="text-muted-foreground">Set up your login details</p>
             </div>
 
             <div className="grid gap-4">
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-zinc-300 font-normal">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
-                  className={errors.email ? "border-red-500" : ""}
+                  className={
+                    errors.email
+                      ? "border-red-500"
+                      : "text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800"
+                  }
                 />
                 {errors.email && (
                   <p className="text-sm text-red-500">{errors.email}</p>
@@ -228,14 +250,20 @@ const handleNext = (e?: React.FormEvent) => {
               </div>
 
               <div className="grid gap-3">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-zinc-300 font-normal">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
                   value={form.password}
                   onChange={handleChange}
                   placeholder="Create a strong password"
-                  className={errors.password ? "border-red-500" : ""}
+                  className={
+                    errors.password
+                      ? "border-red-500"
+                      : "text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800"
+                  }
                 />
                 {errors.password && (
                   <p className="text-sm text-red-500">{errors.password}</p>
@@ -249,13 +277,13 @@ const handleNext = (e?: React.FormEvent) => {
         return (
           <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-2xl font-bold">Finishing touches</h1>
+              <h1 className="text-2xl font-bold text-[#fff]/90">Finishing touches</h1>
               <p className="text-muted-foreground">Add some optional details</p>
             </div>
 
             <div className="grid gap-4">
               <div className="grid gap-3">
-                <Label htmlFor="twitter">
+                <Label htmlFor="twitter" className="text-zinc-300 font-normal">
                   Twitter Handle{" "}
                   <span className="text-muted-foreground">(optional)</span>
                 </Label>
@@ -264,12 +292,18 @@ const handleNext = (e?: React.FormEvent) => {
                   type="text"
                   value={form.twitter}
                   onChange={handleChange}
+                  className={
+                    "text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800"
+                  }
                   placeholder="@yourusername"
                 />
               </div>
 
               <div className="grid gap-3">
-                <Label htmlFor="profile_picture">
+                <Label
+                  htmlFor="profile_picture"
+                  className="text-zinc-300 font-normal"
+                >
                   Profile Picture URL{" "}
                   <span className="text-muted-foreground">(optional)</span>
                 </Label>
@@ -278,6 +312,9 @@ const handleNext = (e?: React.FormEvent) => {
                   type="url"
                   value={form.profile_picture}
                   onChange={handleChange}
+                  className={
+                    "text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800"
+                  }
                   placeholder="https://example.com/your-photo.jpg"
                 />
               </div>
@@ -292,7 +329,7 @@ const handleNext = (e?: React.FormEvent) => {
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
+      <Card className="overflow-hidden p-0 bg-[#000000d0] border border-neutral-900/30 backdrop-blur-md shadow-sm rounded-xl">
         <CardContent className="grid p-0 md:grid-cols-1">
           <form className="p-6 pb-8" onSubmit={handleSubmit}>
             {renderStep()}
@@ -329,7 +366,7 @@ const handleNext = (e?: React.FormEvent) => {
               )}
             </div>
 
-            <div className="text-center text-sm mt-6">
+            <div className="text-center text-sm mt-6 text-muted opacity-75">
               Already have an account?{" "}
               <Link href="/login" className="underline underline-offset-4">
                 Login

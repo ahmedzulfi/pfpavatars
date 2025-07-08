@@ -38,7 +38,7 @@ function Credithistory() {
   }, [user]);
 
   return (
-    <div className="md:col-span-2 lg:col-span-2 xl:col-span-2 h-max bg-neutral-950/60 backdrop-blur-sm shadow-sm border border-neutral-900/60 rounded-xl px-6 py-4">
+    <div className="md:col-span-2 lg:col-span-2 xl:col-span-2 h-max border border-neutral-900/30 bg-neutral-950/40 backdrop-blur-sm shadow-sm  rounded-xl px-6 py-4">
       <div className="mb-5 pt-3">
         <div className="text-lg flex items-center text-white">
           <Clock className="w-5 h-5 mr-2 text-white" />
