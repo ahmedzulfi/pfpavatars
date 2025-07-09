@@ -19,8 +19,7 @@ export default function Home() {
         <div className="relative z-20 w-full h-full overflow-hidden">
           <Hero />
           <Features />
-          <Pricing />
-          <Testimonials />
+          <Testimonials /> <Pricing />
           <Footer />
         </div>
       </main>

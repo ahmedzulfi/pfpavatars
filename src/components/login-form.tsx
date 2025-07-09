@@ -9,19 +9,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/Authcontext";
 
 export function LoginForm({ ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { refreshBackendUser } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError(null);
+    setLoading(true);
 
     try {
-      const idToken = await login(email, password);
+      const idToken = await login(email.trim(), password);
 
       const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
@@ -31,21 +35,29 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
         },
       });
 
-      if (!response.ok) throw new Error("Failed to fetch user");
+      const data = await response.json();
 
-      const user = await response.json(); // user info from DB
-      console.log("Logged in user:", user);
+      if (!response.ok) {
+        throw new Error(data?.error || "Login failed");
+      }
 
+      // Optionally save token / user data
+      localStorage.setItem("token", idToken);
+
+      console.log("Logged in user:", data?.user);
+      await refreshBackendUser();
       router.push("/dashboard");
-    } catch (err) {
-      console.error("Login failed:", err);
-      setError("Invalid email or password.");
+    } catch (err: any) {
+      console.error("Login error:", err);
+      setError(err.message || "Invalid email or password.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className={cn("flex flex-col gap-6")}>
-      <Card className="overflow-hidden p-0 w-full bg-[#000000d0] border border-neutral-900/30 backdrop-blur-md shadow-sm rounded-xl">
+    <div className={cn("flex flex-col gap-6")} {...props}>
+      <Card className="overflow-hidden p-0 w-full bg-neutral-950/60 border border-neutral-900/60 backdrop-blur-md shadow-sm rounded-xl">
         <CardContent className="grid p-0 md:grid-cols-1 w-full">
           <form className="p-6 py-9 md:p-8 w-full" onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
@@ -70,8 +82,9 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
                   placeholder="m@example.com"
                   required
                   value={email}
-                  className="text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800 "
+                  className="text-zinc-300 border border-neutral-900/60 focus:border-neutral-800"
                   onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
                 />
               </div>
 
@@ -84,16 +97,18 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
                   type="password"
                   required
                   value={password}
-                  className="text-zinc-300 border  border-neutral-900/60 focus:border-neutral-800 "
+                  className="text-zinc-300 border border-neutral-900/60 focus:border-neutral-800"
                   onChange={(e) => setPassword(e.target.value)}
+                  disabled={loading}
                 />
               </div>
 
               <Button
                 type="submit"
                 className="w-full bg-[#fcdba3] text-black hover:bg-[#f5c57f]"
+                disabled={loading}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </Button>
 
               <div className="text-center text-sm text-muted opacity-75">

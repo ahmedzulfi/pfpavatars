@@ -66,16 +66,14 @@ const Testimonials: React.FC = () => {
       id="reviews"
     >
       <div className="container mx-auto max-w-[90%] w-full md:w-[1250px] px-4 sm:px-6 lg:px-2 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+        <div className="text-center mb-10 md:mb-20 px-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-white">
             What Our Users Say
           </h2>
-          <p className="text-lg text-neutral-400">
-            Join thousands of satisfied users who have transformed their online
-            presence with AvatarSnap.
+          <p className="text-zinc-400 mt-2 text-sm md:text-base">
+            Cool Feedback From Cool People
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div

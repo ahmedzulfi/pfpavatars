@@ -11,6 +11,7 @@ import Link from "next/link";
 import { auth } from "../Firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useAuth } from "@/context/Authcontext";
 
 export function SignupForm({
   className,
@@ -30,7 +31,7 @@ export function SignupForm({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const totalSteps = 3;
-
+  const { refreshBackendUser } = useAuth();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setForm({ ...form, [id]: value });
@@ -87,75 +88,84 @@ export function SignupForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (currentStep === 3) {
-      const finalErrors = validateStep(totalSteps); // Validate all fields one last time
-      // Also, include validation for previous steps if the user skipped
-      const allErrors = {
-        ...validateStep(1),
-        ...validateStep(2),
-        ...finalErrors,
-      };
+    const finalErrors = {
+      ...validateStep(1),
+      ...validateStep(2),
+      ...validateStep(3),
+    };
 
-      if (Object.keys(allErrors).length > 0) {
-        setErrors(allErrors);
-        // Set currentStep back to the first step with errors if needed
-        if (allErrors.name || allErrors.username) setCurrentStep(1);
-        else if (allErrors.email || allErrors.password) setCurrentStep(2);
-        return;
+    if (Object.keys(finalErrors).length > 0) {
+      setErrors(finalErrors);
+      if (finalErrors.name || finalErrors.username) setCurrentStep(1);
+      else if (finalErrors.email || finalErrors.password) setCurrentStep(2);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 1. Create user in Firebase
+      const userCred = await createUserWithEmailAndPassword(
+        auth,
+        form.email.trim(),
+        form.password.trim()
+      );
+
+      const idToken = await userCred.user.getIdToken();
+
+      // 2. Register user in backend
+      const response = await fetch("http://localhost:5000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({
+          display_name: form.name.trim(),
+          username: form.username.trim(),
+          profile_picture: form.profile_picture || null,
+          twitter: form.twitter || null,
+          auth_provider: "firebase",
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const msg = data?.error || "Failed to register user";
+        throw new Error(msg);
       }
 
-      setLoading(true);
-      try {
-        const userCred = await createUserWithEmailAndPassword(
-          auth,
-          form.email,
-          form.password
-        );
+      // 3. Optionally store token
+      localStorage.setItem("token", idToken);
+      await refreshBackendUser();
+      // 4. Redirect to dashboard
+      router.push("/dashboard");
+    } catch (err: any) {
+      console.error("Signup error:", err);
 
-        const idToken = await userCred.user.getIdToken();
+      const msg = err.message || "";
 
-        await fetch("http://localhost:5000/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${idToken}`,
-          },
-          body: JSON.stringify({
-            display_name: form.name,
-            username: form.username,
-            profile_picture: form.profile_picture || null,
-            twitter: form.twitter,
-            auth_provider: "firebase",
-          }),
-        });
-
-        router.push("/dashboard");
-      } catch (err: any) {
-        console.error("Signup error:", err);
-        if (err.code === "auth/email-already-in-use") {
-          setErrors((prev) => ({
-            ...prev,
-            email: "Email is already in use.",
-          }));
-          setCurrentStep(2); // Go back to step 2 to show email error
-        } else if (err.code === "auth/invalid-email") {
-          setErrors((prev) => ({
-            ...prev,
-            email: "Invalid email address.",
-          }));
-          setCurrentStep(2); // Go back to step 2 to show email error
-        } else if (err.code === "auth/weak-password") {
-          setErrors((prev) => ({
-            ...prev,
-            password: "Password is too weak.",
-          }));
-          setCurrentStep(2); // Go back to step 2 to show password error
-        } else {
-          alert("Signup failed. Please check the console for more info.");
-        }
-      } finally {
-        setLoading(false);
+      // Firebase errors
+      if (err.code === "auth/email-already-in-use") {
+        setErrors((prev) => ({ ...prev, email: "Email is already in use." }));
+        setCurrentStep(2);
+      } else if (err.code === "auth/invalid-email") {
+        setErrors((prev) => ({ ...prev, email: "Invalid email address." }));
+        setCurrentStep(2);
+      } else if (err.code === "auth/weak-password") {
+        setErrors((prev) => ({ ...prev, password: "Password is too weak." }));
+        setCurrentStep(2);
       }
+      // Backend errors
+      else if (msg.includes("Username")) {
+        setErrors((prev) => ({ ...prev, username: msg }));
+        setCurrentStep(1);
+      } else {
+        alert("Signup failed. See console for more details.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -277,7 +287,9 @@ export function SignupForm({
         return (
           <div className="flex flex-col gap-6">
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-2xl font-bold text-[#fff]/90">Finishing touches</h1>
+              <h1 className="text-2xl font-bold text-[#fff]/90">
+                Finishing touches
+              </h1>
               <p className="text-muted-foreground">Add some optional details</p>
             </div>
 
@@ -329,7 +341,7 @@ export function SignupForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0 bg-[#000000d0] border border-neutral-900/30 backdrop-blur-md shadow-sm rounded-xl">
+      <Card className="overflow-hidden p-0 bg-neutral-950/60 border border-neutral-900/60  backdrop-blur-3xl shadow-sm rounded-xl">
         <CardContent className="grid p-0 md:grid-cols-1">
           <form className="p-6 pb-8" onSubmit={handleSubmit}>
             {renderStep()}

@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useState, useRef } from "react";
-import { Upload, X, Sparkles, Coins, Loader2 } from "lucide-react";
+import { Upload, X, Sparkles, Loader2 } from "lucide-react";
 import { useAuth } from "@/context/Authcontext";
 import { ProtectedRoute } from "@/firebase/ProtectedRoute";
 import img1 from "../../image/style1.png";
@@ -15,6 +15,7 @@ import {
   ImageComparisonImage,
   ImageComparisonSlider,
 } from "@/components/ImageComparision";
+import CountdownOverlay from "@/components/CountdownOverlay";
 
 export default function GetStarted() {
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
@@ -26,31 +27,30 @@ export default function GetStarted() {
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
-  const creditsRequired = 10;
 
   const avatarStyles = [
     {
-      image: img1, // replace with correct preview
+      image: img1,
       id: "vintage-mono",
       name: "Vintage Mono Avatar",
       description: "Black & white avatar with retro cartoon charm",
     },
     {
-      image: img2, // replace with correct preview
+      image: img2,
       id: "beige-noir",
       name: "Beige Noir Avatar",
       description:
         "Minimalist style with white skin, black clothes, beige background",
     },
     {
-      image: img3, // replace with correct preview
+      image: img3,
       id: "vintage-pixel",
       name: "Vintage Pixel Avatar",
       description:
         "No facial features, thick outlines, colors taken from your image",
     },
     {
-      image: img4, // replace with correct preview
+      image: img4,
       id: "pastel-pop",
       name: "Pastel Pop Avatar",
       description: "Soft pastel tones with friendly cartoon vibes",
@@ -71,7 +71,6 @@ export default function GetStarted() {
 
     try {
       setIsGenerating(true);
-
       const formData = new FormData();
       formData.append("image", uploadedImage);
       formData.append("style", selectedStyle);
@@ -90,6 +89,7 @@ export default function GetStarted() {
       setCurrentStep(3);
     } catch (error) {
       console.error("Error generating avatar:", error);
+      alert("Something went wrong. Please try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -128,23 +128,13 @@ export default function GetStarted() {
       <>
         {isGenerating && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
-            <div className="bg-neutral-950 text-white rounded-2xl p-8 mx-4 max-w-md w-full text-center shadow-2xl">
-              <Loader2 className="w-16 h-16 text-[#ffedc9] mx-auto animate-spin mb-6" />
-              <h3 className="text-xl font-bold mb-2">Creating Your Avatars</h3>
-              <p className="text-gray-400 mb-4">
-                This usually takes 2-3 minutes
-              </p>
-              <div className="bg-neutral-800 rounded-full h-2 mb-4">
-                <div className="bg-gradient-to-r from-[#ffedc9] to-[#ffdea6] h-2 rounded-full animate-pulse w-3/4"></div>
-              </div>
-              <p className="text-sm text-gray-500">Please wait…</p>
-            </div>
+            <CountdownOverlay />
           </div>
         )}
 
-        <main className="h-full min-h-screen w-full bg-black text-white flex items-center justify-center font-[family-name:var(--font-geist-sans)]">
-          <section className="w-full max-w-[1270px] px-4 pt-10 sm:px-0 lg:px-0 mt-10">
-            <div className="w-full bg-neutral-950/40 border border-neutral-900/30 rounded-xl p-4 sm:p-6 md:p-8 flex flex-col">
+        <main className="min-h-screen w-full bg-black text-white flex items-center justify-center font-[family-name:var(--font-geist-sans)]">
+          <section className="w-full max-w-[1270px] px-4 pt-10">
+            <div className="bg-neutral-950/40 border border-neutral-900/30 rounded-xl p-4 sm:p-6 md:p-8 flex flex-col">
               <div className="flex-grow overflow-auto">
                 {currentStep === 1 && (
                   <div className="flex flex-col lg:flex-row gap-6">
@@ -166,16 +156,12 @@ export default function GetStarted() {
                               className="rounded"
                             />
                           </div>
-                          <h3 className="font-semibold mb-1 text-sm">
+                          <h3 className="font-semibold text-sm">
                             {style.name}
                           </h3>
-                          <p className="text-xs text-gray-400">
-                            {style.description}
-                          </p>
                         </div>
                       ))}
                     </div>
-
                     <div className="w-full lg:w-1/2 border border-neutral-900/30 bg-neutral-950/30 rounded-lg p-4">
                       {selectedStyle ? (
                         renderComparison()
@@ -230,7 +216,6 @@ export default function GetStarted() {
                         className="hidden"
                       />
                     </div>
-
                     <div className="w-full lg:w-1/2 border border-neutral-900/30 bg-neutral-950/30 rounded-lg p-4">
                       {selectedStyle ? (
                         renderComparison()
@@ -250,7 +235,7 @@ export default function GetStarted() {
                         Your Avatar is Ready!
                       </h2>
                       <p className="text-sm text-gray-400 mb-4">
-                        Right-click or long-press the image below to save.
+                        Right-click or long-press to save.
                       </p>
                       {generatedAvatarUrl ? (
                         <img
@@ -264,13 +249,39 @@ export default function GetStarted() {
                         </div>
                       )}
                       <div className="mt-4">
-                        <a
-                          href={generatedAvatarUrl ?? "#"}
-                          download="avatar.png"
-                          className="inline-block bg-[#ffedc9] hover:bg-[#ffdea6] text-black text-sm font-semibold py-2 px-4 rounded mt-2 transition"
-                        >
-                          Download Avatar
-                        </a>
+                        {generatedAvatarUrl ? (
+                          <button
+                            onClick={async () => {
+                              try {
+                                const response = await fetch(
+                                  generatedAvatarUrl
+                                );
+                                const blob = await response.blob();
+                                const url = URL.createObjectURL(blob);
+                                const a = document.createElement("a");
+                                a.href = url;
+                                a.download = "avatar.png";
+                                document.body.appendChild(a);
+                                a.click();
+                                a.remove();
+                                URL.revokeObjectURL(url);
+                              } catch (err) {
+                                console.error("Download failed", err);
+                                alert("Download failed. Please try again.");
+                              }
+                            }}
+                            className="inline-block text-black text-sm font-semibold py-2 px-4 rounded mt-2 transition bg-[#ffedc9] hover:bg-[#ffdea6]"
+                          >
+                            Download Avatar
+                          </button>
+                        ) : (
+                          <button
+                            disabled
+                            className="inline-block text-black text-sm font-semibold py-2 px-4 rounded mt-2 bg-gray-500 cursor-not-allowed"
+                          >
+                            Download Avatar
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -281,7 +292,11 @@ export default function GetStarted() {
                 <button
                   onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
                   disabled={currentStep === 1 || isGenerating}
-                  className="border border-gray-600 text-white px-4 py-2 rounded font-semibold disabled:opacity-50"
+                  className={`px-4 py-2 rounded font-semibold ${
+                    currentStep === 1 || isGenerating
+                      ? "bg-gray-600 text-white cursor-not-allowed"
+                      : "border border-gray-600 text-white"
+                  }`}
                 >
                   Previous
                 </button>
@@ -290,7 +305,11 @@ export default function GetStarted() {
                   <button
                     onClick={() => setCurrentStep(2)}
                     disabled={!selectedStyle || isGenerating}
-                    className="bg-[#ffedc9] hover:bg-[#ffdea6] text-black px-4 py-2 rounded font-semibold disabled:opacity-50"
+                    className={`px-4 py-2 rounded font-semibold transition ${
+                      !selectedStyle || isGenerating
+                        ? "bg-gray-600 text-white cursor-not-allowed"
+                        : "bg-[#ffedc9] hover:bg-[#ffdea6] text-black"
+                    }`}
                   >
                     Continue
                   </button>
@@ -299,8 +318,12 @@ export default function GetStarted() {
                 {(currentStep === 2 || currentStep === 3) && (
                   <button
                     onClick={handleGenerate}
-                    disabled={!uploadedImage || isGenerating}
-                    className="bg-[#ffedc9] hover:bg-[#ffdea6] text-black px-4 py-2 rounded font-semibold disabled:opacity-50 flex items-center"
+                    disabled={!uploadedImage || !selectedStyle || isGenerating}
+                    className={`flex items-center px-4 py-2 rounded font-semibold transition ${
+                      !uploadedImage || !selectedStyle || isGenerating
+                        ? "bg-gray-600 text-white cursor-not-allowed"
+                        : "bg-[#ffedc9] hover:bg-[#ffdea6] text-black"
+                    }`}
                   >
                     {isGenerating ? (
                       <>

@@ -25,11 +25,18 @@ export default function AvatarGallery() {
   ];
 
   return (
-    <div className="relative w-full z-100 bg-black overflow-hidden b md:py-35 py-10">
+    <div className="relative w-full z-100 bg-black overflow-hidden b md:py-25 py-15">
       {/* Left & Right Gradients */}
       <div className="absolute top-0 left-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-r from-black to-transparent" />
       <div className="absolute top-0 right-0 h-full w-32 z-10 pointer-events-none bg-gradient-to-l from-black to-transparent" />
-
+      <div className="text-center mb-10 md:mb-20 px-4">
+        <h2 className="text-2xl md:text-4xl font-bold text-white">
+          See Some Cool Avatars
+        </h2>
+        <p className="text-zinc-400 mt-2 text-sm md:text-base">
+          A sample of styles you can create. Pick your favorite!
+        </p>
+      </div>
       {/* Top Row - scroll left */}
       <div className="overflow-hidden w-full md:mb-12">
         <div className="flex animate-loop-left gap-6 w-max">

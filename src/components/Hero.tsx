@@ -1,6 +1,13 @@
 "use client";
 
-import React from "react";
+// Extend the Window interface to include UnicornStudio
+declare global {
+  interface Window {
+    UnicornStudio: any;
+  }
+}
+
+import React, { useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import ImageTrail, { ImageTrailItem } from "./image-trail";
 import image1 from "../image/anime-avatar-50.jpg";
@@ -13,6 +20,8 @@ import image7 from "../image/img9.jpg";
 import image8 from "../image/anime-avatar-48.jpg";
 import image9 from "../image/anime-avatar-49.jpg";
 import CarouselVertical from "./animations/Carouselvertiocal";
+import { useRouter } from "next/navigation";
+import Coolbg from "./animations/Coolbg";
 
 const Hero: React.FC = () => {
   const avatars = [
@@ -28,18 +37,20 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full min-h-[95vh] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-[95vh]  flex items-center justify-center overflow-hidden">
       {/* Grid background */}
-      <div className="opacity-[.5%] absolute inset-0 [background-size:40px_40px] [background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]" />
-
+      <div className="opacity-[1%] z-100 absolute inset-0 [background-size:40px_40px] [background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]" />
+      <Coolbg id="rU2c01mhL2Uo3EQelrR7" />
       {/* Gradient glows */}
       <div className="absolute top-0 left-0 w-[140px] h-[50px] rounded-full bg-gradient-to-tr from-[#ffedc9]/90 to-transparent blur-3xl z-0" />
       <div className="absolute bottom-0 right-0 w-[140px] h-[50px] rounded-full bg-gradient-to-bl from-[#ffedc9] via-[#facc15]/30 to-transparent blur-3xl z-0" />
 
+      <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,_#000000f5_30%,_#0000007a_50%,_transparent_60%)] z-1" />
+
       {/* Main Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl w-full mx-auto relative  px-6 py-16 md:py-24 pointer-events-none">
+      <div className="grid grid-cols-1 md:grid-cols-2 z-5 text-[#000000f5] max-w-7xl w-full  h-full mx-auto relative  px-6  pointer-events-none">
         {/* Left Text Section */}
-        <div className="flex flex-col justify-center gap-4">
+        <div className="flex flex-col justify-center gap-4 relative  h-full">
           <span className=" inline-flex justify-center items-center w-max px-4 py-1.5 mb-4 text-xs sm:text-sm font-medium rounded-full bg-yellow-100/3 text-[#ffedc9]">
             <Sparkles className="w-4 h-4 me-2" /> ValidMVps
           </span>
