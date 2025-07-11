@@ -16,6 +16,8 @@ import {
   ImageComparisonSlider,
 } from "@/components/ImageComparision";
 import CountdownOverlay from "@/components/CountdownOverlay";
+import exampleimg from "../../image/main.png";
+import { useRouter } from "next/navigation";
 
 export default function GetStarted() {
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
@@ -56,7 +58,7 @@ export default function GetStarted() {
       description: "Soft pastel tones with friendly cartoon vibes",
     },
   ];
-
+  const router = useRouter();
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]?.type.startsWith("image/")) {
       setUploadedImage(e.target.files[0]);
@@ -76,7 +78,7 @@ export default function GetStarted() {
       formData.append("style", selectedStyle);
 
       const idToken = await user?.getIdToken();
-      const res = await fetch("http://localhost:5000/avatars/generate", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/avatars/generate`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${idToken}`,
@@ -85,6 +87,18 @@ export default function GetStarted() {
       });
 
       const data = await res.json();
+
+      if (res.status === 403) {
+        alert("❌ You don’t have enough credits to generate this avatar.");
+        return;
+      }
+
+      if (!res.ok || !data.avatar) {
+        console.error("Generation failed:", data);
+        alert("Something went wrong. Please try again.");
+        return;
+      }
+
       setGeneratedAvatarUrl(data.avatar);
       setCurrentStep(3);
     } catch (error) {
@@ -102,19 +116,19 @@ export default function GetStarted() {
     const styleImgSrc = stylePreviewImage(selectedStyle).src;
     const uploadedImgSrc = uploadedImage
       ? URL.createObjectURL(uploadedImage)
-      : styleImgSrc;
+      : exampleimg.src;
 
     return (
       <ImageComparison className="w-full h-full" enableHover>
         <ImageComparisonImage
-          src={styleImgSrc}
+          src={uploadedImgSrc}
           alt="Style Preview"
-          position="left"
+          position="right"
         />
         <ImageComparisonImage
-          src={uploadedImgSrc}
+          src={styleImgSrc}
           alt="Your Image"
-          position="right"
+          position="left"
         />
         <ImageComparisonSlider className="w-2 bg-black/50 backdrop-blur-xs transition-colors hover:bg-black/80">
           <div className="absolute left-1/2 top-1/2 h-8 w-6 -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-black" />
@@ -290,7 +304,11 @@ export default function GetStarted() {
 
               <div className="flex justify-between items-center mt-6">
                 <button
-                  onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+                  onClick={
+                    currentStep == 1
+                      ? () => setCurrentStep(Math.max(1, currentStep - 1))
+                      : () => router.push("/dashboard")
+                  }
                   disabled={currentStep === 1 || isGenerating}
                   className={`px-4 py-2 rounded font-semibold ${
                     currentStep === 1 || isGenerating

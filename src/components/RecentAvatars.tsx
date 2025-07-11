@@ -14,7 +14,8 @@ type Avatar = {
 
 function RecentAvatars() {
   const [avatars, setAvatars] = useState<Avatar[]>([]);
-  const { user, loading } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const { user, loading: authLoading } = useAuth();
 
   const downloadImage = async (url: string, filename: string) => {
     try {
@@ -36,12 +37,12 @@ function RecentAvatars() {
   };
 
   useEffect(() => {
-    if (!user || loading) return;
+    if (!user || authLoading) return;
 
     const fetchRecentAvatars = async () => {
       try {
         const token = await user.getIdToken();
-        const res = await fetch("http://localhost:5000/avatars/recent", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/avatars/recent`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -53,25 +54,37 @@ function RecentAvatars() {
         }
 
         const data = await res.json();
-        setAvatars(data.avatars);
+        setAvatars(data.avatars || []);
       } catch (err) {
         console.error("Fetch error:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchRecentAvatars();
-  }, [user, loading]);
+  }, [user, authLoading]);
 
   return (
-    <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 border border-neutral-900/30 bg-neutral-950/40  backdrop-blur-sm shadow-sm rounded-xl md:px-6 px-3 py-6">
+    <div className="md:col-span-2 lg:col-span-4 xl:col-span-4 border border-neutral-900/30 bg-neutral-950/40 backdrop-blur-sm shadow-sm rounded-xl md:px-6 px-3 py-6">
       <div className="flex flex-row items-center justify-between mb-6">
         <div>
-          <div className="text-xl pb-1 text-white">Recent Avatar Generations</div>
-          <p className="text-xs text-neutral-400">Your latest AI avatar creations</p>
+          <h2 className="text-xl pb-1 text-white">Recent Avatar Generations</h2>
+          <p className="text-xs text-neutral-400">
+            Your latest AI avatar creations
+          </p>
         </div>
       </div>
 
-      <div>
+      {isLoading ? (
+        <div className="text-sm text-center text-neutral-400 py-12">
+          Loading avatars...
+        </div>
+      ) : avatars.length === 0 ? (
+        <div className="text-sm text-center text-neutral-400 py-12">
+          You haven't generated any avatars yet.
+        </div>
+      ) : (
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {avatars.map((avatar) => (
             <div key={avatar.id} className="group cursor-pointer">
@@ -108,7 +121,7 @@ function RecentAvatars() {
             </div>
           ))}
         </div>
-      </div>
+      )}
     </div>
   );
 }

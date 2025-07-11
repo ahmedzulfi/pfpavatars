@@ -19,7 +19,7 @@ export default function RootLayout({
       <LenisProvider>
         <AnimatePresence>
           <body
-            className={` antialiased flex flex-col w-full items-center justify-center`}
+            className={` antialiased   flex flex-col w-full items-center justify-center`}
           >
             <AuthProvider>
               <Header />

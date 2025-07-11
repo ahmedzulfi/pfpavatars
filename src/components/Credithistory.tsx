@@ -20,7 +20,7 @@ function Credithistory() {
     const fetchHistory = async () => {
       try {
         const idToken = await user?.getIdToken();
-        const res = await fetch("http://localhost:5000/api/users/credits-history", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/credits-history`, {
           headers: {
             Authorization: `Bearer ${idToken}`,
           },

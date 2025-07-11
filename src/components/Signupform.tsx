@@ -114,20 +114,23 @@ export function SignupForm({
       const idToken = await userCred.user.getIdToken();
 
       // 2. Register user in backend
-      const response = await fetch("http://localhost:5000/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({
-          display_name: form.name.trim(),
-          username: form.username.trim(),
-          profile_picture: form.profile_picture || null,
-          twitter: form.twitter || null,
-          auth_provider: "firebase",
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${idToken}`,
+          },
+          body: JSON.stringify({
+            display_name: form.name.trim(),
+            username: form.username.trim(),
+            profile_picture: form.profile_picture || null,
+            twitter: form.twitter || null,
+            auth_provider: "firebase",
+          }),
+        }
+      );
 
       const data = await response.json();
 

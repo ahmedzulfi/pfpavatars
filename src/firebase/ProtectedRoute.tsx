@@ -1,19 +1,21 @@
-// firebase/ProtectedRoute.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/Authcontext";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 export function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  if (loading) return <div className="text-center p-6">Loading...</div>;
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [user, loading, router]);
 
-  if (!user) {
-    router.push("/login");
-    return null;
+  if (loading || !user) {
+    return <div className="text-center p-6">Loading...</div>;
   }
 
   return <>{children}</>;

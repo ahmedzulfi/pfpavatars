@@ -34,8 +34,8 @@ function Sidebar() {
   const { user, backendUser } = useAuth();
 
   const menuItems = [
-    { name: "Pricing", href: "#pricing", icon: Search },
-    { name: "Features", href: "/features", icon: Package },
+    { name: "Pricing", href: "/pricing", icon: Search },
+    { name: "gallery", href: "/gallery", icon: Package },
     { name: "Reviews", href: "#reviews", icon: Package },
   ];
 
