@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 import { useAuth } from "@/context/Authcontext";
-import { auth } from "@/Firebase";
+import { getFirebaseAuth } from "@/Firebase";
 
 import image1 from "../image/avatar1.jpg";
 import PageTransitionWrapper from "./animations/PageTransitionWrapper";
@@ -38,7 +38,7 @@ function Sidebar() {
     { name: "gallery", href: "/gallery", icon: Package },
     { name: "Reviews", href: "#reviews", icon: Package },
   ];
-
+  const auth = getFirebaseAuth();
   const logoutHandler = async () => {
     await auth.signOut();
     router.push("/");

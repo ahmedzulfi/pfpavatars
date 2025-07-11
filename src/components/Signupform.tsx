@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { auth } from "../Firebase";
+import { getFirebaseAuth } from "../Firebase"; // Changed from auth import
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useAuth } from "@/context/Authcontext";
@@ -32,6 +32,7 @@ export function SignupForm({
   const router = useRouter();
   const totalSteps = 3;
   const { refreshBackendUser } = useAuth();
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setForm({ ...form, [id]: value });
@@ -104,6 +105,9 @@ export function SignupForm({
     setLoading(true);
 
     try {
+      // Get Firebase auth instance safely
+      const auth = getFirebaseAuth();
+      
       // 1. Create user in Firebase
       const userCred = await createUserWithEmailAndPassword(
         auth,

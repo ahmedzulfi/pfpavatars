@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../Firebase";
+import { getFirebaseAuth } from "../Firebase";
 
 interface BackendUser {
   id: string;
@@ -22,7 +22,7 @@ interface BackendUser {
 }
 
 interface AuthContextType {
-  user: User | null; // Firebase user
+  user: User | null;
   loading: boolean;
   backendUser: BackendUser | null;
   refreshBackendUser: () => Promise<void>;
@@ -32,7 +32,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   backendUser: null,
-  refreshBackendUser: async () => {}, // default no-op
+  refreshBackendUser: async () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -41,10 +41,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [backendUser, setBackendUser] = useState<BackendUser | null>(null);
 
   const refreshBackendUser = async (firebaseUserOverride?: User | null) => {
-    const currentUser = firebaseUserOverride || auth.currentUser;
-    if (!currentUser) return;
-
     try {
+      const auth = getFirebaseAuth();
+      const currentUser = firebaseUserOverride || auth.currentUser;
+      if (!currentUser) return;
+
       const idToken = await currentUser.getIdToken();
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
         headers: {
@@ -62,23 +63,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
-      setLoading(true);
+    try {
+      const auth = getFirebaseAuth();
+      
+      const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+        setUser(firebaseUser);
+        setLoading(true);
 
-      if (firebaseUser) {
-        await refreshBackendUser(firebaseUser);
-      } else {
-        setBackendUser(null);
-      }
+        if (firebaseUser) {
+          await refreshBackendUser(firebaseUser);
+        } else {
+          setBackendUser(null);
+        }
 
+        setLoading(false);
+      });
+
+      return () => unsubscribe();
+    } catch (error) {
+      console.error("Firebase auth initialization failed:", error);
       setLoading(false);
-    });
-
-    return () => unsubscribe();
+    }
   }, []);
 
-  if (loading) return null; // prevent rendering app until auth is ready
+  if (loading) {
+    return <div className="text-center p-6">Loading...</div>;
+  }
 
   return (
     <AuthContext.Provider
