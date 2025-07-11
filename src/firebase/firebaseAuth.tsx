@@ -1,13 +1,12 @@
-// lib/authFunctions.ts
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  getIdToken,
 } from "firebase/auth";
-import { auth } from "../Firebase";
+import { getFirebaseAuth } from "../Firebase";
 
 // Signup
 export const signup = async (email: string, password: string) => {
+  const auth = getFirebaseAuth();
   const userCred = await createUserWithEmailAndPassword(auth, email, password);
   const idToken = await userCred.user.getIdToken();
   return idToken;
@@ -15,6 +14,7 @@ export const signup = async (email: string, password: string) => {
 
 // Login
 export const login = async (email: string, password: string) => {
+  const auth = getFirebaseAuth();
   const userCred = await signInWithEmailAndPassword(auth, email, password);
   const idToken = await userCred.user.getIdToken();
   return idToken;
