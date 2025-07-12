@@ -1,5 +1,3 @@
-'use client';
-
 import { getApp, getApps, initializeApp, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
 
@@ -13,28 +11,37 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Check if we're in a build environment or if Firebase config is incomplete
-const isConfigValid = firebaseConfig.apiKey &&
+// More robust config validation
+const isConfigValid = Boolean(
+  firebaseConfig.apiKey &&
   firebaseConfig.authDomain &&
-  firebaseConfig.projectId;
+  firebaseConfig.projectId &&
+  firebaseConfig.storageBucket &&
+  firebaseConfig.messagingSenderId &&
+  firebaseConfig.appId
+);
+
+console.log("Firebase config validation:", {
+  isConfigValid,
+  hasApiKey: Boolean(firebaseConfig.apiKey),
+  hasAuthDomain: Boolean(firebaseConfig.authDomain),
+  hasProjectId: Boolean(firebaseConfig.projectId),
+  environment: process.env.NODE_ENV,
+});
 
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
-console.log("Firebase config check:", {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-});
+
 if (isConfigValid) {
   try {
     app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
     auth = getAuth(app);
+    console.log("Firebase initialized successfully");
   } catch (error) {
     console.error('Firebase initialization failed:', error);
   }
 } else {
-  // During build or when config is missing
-  console.warn('Firebase config is incomplete, auth will be null');
+  console.error('Firebase config is incomplete. Missing environment variables.');
 }
 
 // Helper function to safely get auth
@@ -45,5 +52,4 @@ export const getFirebaseAuth = (): Auth => {
   return auth;
 };
 
-// Export auth for backward compatibility (but prefer using getFirebaseAuth)
 export { auth };
