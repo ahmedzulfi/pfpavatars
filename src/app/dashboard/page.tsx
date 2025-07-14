@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import Userstats from "@/components/Userstats";
@@ -11,7 +11,10 @@ import { ProtectedRoute } from "@/firebase/ProtectedRoute";
 import { useAuth } from "../../context/Authcontext";
 
 export default function Dashboard() {
-  const { user, loading, backendUser } = useAuth();
+  const { user, loading, backendUser, refreshBackendUser } = useAuth();
+  useEffect(() => {
+    refreshBackendUser();
+  }, []);
 
   return (
     <ProtectedRoute>
@@ -19,7 +22,7 @@ export default function Dashboard() {
         <div className="relative z-20 min-h-screen flex justify-center w-full backdrop-blur-sm">
           <section className="relative pt-20 w-[1270px] max-w-[90%] min-h-[80%] overflow-visible">
             <div className="container mx-auto px-2 sm:px-6 lg:px-0 pt-10 md:pt-10 pb-16 md:pb-24 relative z-10 h-full rounded-xl">
-              <div className="bg-neutral-950/40 backdrop-blur-md border border-neutral-900/30  shadow-sm rounded-2xl p-8 0 mb-7">
+              <div className=" backdrop-blur-md  py-8 border-b-1 border-neutral-900 0 mb-7">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
                   <div>
                     <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-white">

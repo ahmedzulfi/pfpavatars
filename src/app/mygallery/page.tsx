@@ -1,0 +1,137 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { Download } from "lucide-react";
+import Image from "next/image";
+import { useAuth } from "../../context/Authcontext";
+import PageTransitionWrapper from "@/components/animations/PageTransitionWrapper";
+
+type Avatar = {
+  id: number;
+  style: string;
+  processed_image: string;
+  created_at: string;
+};
+
+function mygallery() {
+  const [avatars, setAvatars] = useState<Avatar[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { user, loading: authLoading } = useAuth();
+
+  const downloadImage = async (url: string, filename: string) => {
+    try {
+      const response = await fetch(url, { mode: "cors" });
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!user || authLoading) return;
+
+    const fetchRecentAvatars = async () => {
+      try {
+        const token = await user.getIdToken();
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/avatars/recent`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!res.ok) {
+          console.error("Failed to fetch avatars:", res.statusText);
+          return;
+        }
+
+        const data = await res.json();
+        setAvatars(data.avatars || []);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRecentAvatars();
+  }, [user, authLoading]);
+
+  return (
+    <PageTransitionWrapper>
+      <div className="w-full border border-neutral-900/30 bg-black backdrop-blur-sm shadow-sm rounded-xl  px-3 md:px-12 py-6 flex justify-center">
+        <div className="max-w-7xl w-full h-screen pt-24 px-5">
+          <div className="flex flex-row items-center justify-between mb-6">
+            <div>
+              <h2 className="text-4xl pb-1 text-white">My Gallery</h2>
+              <p className="text-xl text-neutral-400">
+                Your latest AI avatar creations
+              </p>
+            </div>
+          </div>
+
+          {isLoading ? (
+            <div className="text-sm text-center text-neutral-400 py-12">
+              Loading avatars...
+            </div>
+          ) : avatars.length === 0 ? (
+            <div className="text-sm text-center text-neutral-400 py-12">
+              You haven't generated any avatars yet.
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 md:mt-10 gap-4">
+              {avatars.map((avatar) => (
+                <div key={avatar.id} className="group cursor-pointer">
+                  <div className="relative aspect-square mb-3 overflow-hidden rounded-lg">
+                    <Image
+                      src={avatar.processed_image}
+                      alt={`${avatar.style} avatar`}
+                      fill
+                      className="object-cover transition-transform group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                    <div className="absolute inset-0 w-full h-full">
+                      <div
+                        className="w-full h-full flex justify-center items-center bg-black/10 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() =>
+                          downloadImage(
+                            avatar.processed_image,
+                            `${avatar.style}-avatar-${avatar.id}.jpg`
+                          )
+                        }
+                      >
+                        <Download className="w-7 h-7 mr-1 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-white text-sm">
+                      {avatar.style} Avatar
+                    </h4>
+                    <p className="text-xs text-neutral-400">
+                      {new Date(avatar.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </PageTransitionWrapper>
+  );
+}
+
+export default mygallery;

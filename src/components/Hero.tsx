@@ -22,6 +22,7 @@ import image9 from "../image/anime-avatar-49.jpg";
 import CarouselVertical from "./animations/Carouselvertiocal";
 import { useRouter } from "next/navigation";
 import Coolbg from "./animations/Coolbg";
+import Link from "next/link";
 
 const Hero: React.FC = () => {
   const avatars = [
@@ -39,9 +40,11 @@ const Hero: React.FC = () => {
   return (
     <section className="relative w-full min-h-[95vh]  flex items-center justify-center overflow-hidden">
       {/* Grid background */}
-      <div className="opacity-[1%] z-100 absolute inset-0 [background-size:40px_40px] [background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]" />
-      <Coolbg id="rU2c01mhL2Uo3EQelrR7" />
-      {/* Gradient glows */}
+      <div className="opacity-[1%] z-1 absolute inset-0 [background-size:40px_40px] [background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]" />
+      <Coolbg id="KQQjnJrWP3cJMjT2Q7UA" />
+      {
+        //rU2c01mhL2Uo3EQelrR7
+      }
       <div className="absolute top-0 left-0 w-[140px] h-[50px] rounded-full bg-gradient-to-tr from-[#ffedc9]/90 to-transparent blur-3xl z-0" />
       <div className="absolute bottom-0 right-0 w-[140px] h-[50px] rounded-full bg-gradient-to-bl from-[#ffedc9] via-[#facc15]/30 to-transparent blur-3xl z-0" />
 
@@ -64,9 +67,12 @@ const Hero: React.FC = () => {
             like you.
           </p>
           <div className="mt-4">
-            <button className="px-6 py-3 rounded-full bg-[#ffedc9] text-black font-semibold shadow-lg hover:brightness-95 transition">
-              Get Started
-            </button>
+            <Link
+              href={"/upload"}
+              className="px-6   pointer-events-auto py-3 rounded-full bg-[#ffedc9] text-black font-semibold shadow-lg hover:brightness-95 transition"
+            >
+              Create Avatar
+            </Link>
           </div>
         </div>
 

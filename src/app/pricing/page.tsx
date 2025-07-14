@@ -59,11 +59,11 @@ export default function Pricing() {
     <main className="min-h-screen w-screen bg-[#040404]  text-white flex items-center justify-center">
   <section className="max-w-6xl w-full mx-auto px-4 py-24">
           <div className="text-center mb-12">
-            <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white mb-4 leading-snug sm:leading-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-4xl font-bold text-white mb-4 leading-snug sm:leading-tight">
               Simple & Transparent.
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg text-neutral-400 max-w-2xl mx-auto mb-8">
+            <p className="text-sm sm:text-base md:text-base text-neutral-400 max-w-2xl mx-auto mb-8">
               Each generation takes about 60 seconds. Purchase as many as you'd
               like.
             </p>

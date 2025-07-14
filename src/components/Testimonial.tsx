@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles, Star } from "lucide-react";
+import { MagicCard } from "./Magiccard";
 
 const testimonials = [
   {
@@ -76,41 +77,45 @@ const Testimonials: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="bg-neutral-950/80 border border-neutral-950/60 rounded-xl shadow-md p-6 relative"
-            >
-              <div className="flex items-center space-x-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 fill-yellow-500 text-yellow-500"
-                  />
-                ))}
-                {[...Array(5 - testimonial.rating)].map((_, i) => (
-                  <Star
-                    key={i + testimonial.rating}
-                    className="w-5 h-5 text-neutral-600"
-                  />
-                ))}
-              </div>
+              <div
+                key={index}
+                className="bg-neutral-950/80 border border-neutral-950/30 rounded-xl shadow-md p-6 relative"
+              >
+                <div className="flex items-center space-x-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-yellow-500 text-yellow-500"
+                    />
+                  ))}
+                  {[...Array(5 - testimonial.rating)].map((_, i) => (
+                    <Star
+                      key={i + testimonial.rating}
+                      className="w-5 h-5 text-neutral-600"
+                    />
+                  ))}
+                </div>
 
-              <p className="text-neutral-300 mb-6 italic">
-                "{testimonial.comment}"
-              </p>
+                <p className="text-neutral-300 mb-6 italic">
+                  "{testimonial.comment}"
+                </p>
 
-              <div className="flex items-center mt-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div className="ml-3">
-                  <h4 className="font-medium text-white">{testimonial.name}</h4>
-                  <p className="text-sm text-neutral-400">{testimonial.role}</p>
+                <div className="flex items-center mt-4">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />{" "}
+                  <div className="ml-3">
+                    <h4 className="font-medium text-white">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-sm text-neutral-400">
+                      {testimonial.role}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
           ))}
         </div>
       </div>

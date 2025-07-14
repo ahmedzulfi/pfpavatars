@@ -27,10 +27,13 @@ import {
 } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import logo from "../image/PFP AVATARS.png";
 
 function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
   const { user, backendUser } = useAuth();
 
   const menuItems = [
@@ -45,9 +48,12 @@ function Sidebar() {
   };
 
   const renderUserPopover = () => (
-    <Popover>
+    <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
       <PopoverTrigger asChild>
-        <Button className="rounded-full p-0 h-8 w-8  ">
+        <Button
+          className="rounded-full p-0 h-8 w-8"
+          onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+        >
           <Avatar className="bg-neutral-900 text-white focus-visible:ring-0">
             {backendUser?.profile_picture ? (
               <AvatarImage
@@ -62,53 +68,91 @@ function Sidebar() {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-64 mr-4 mt-2 bg-black border border-neutral-900/30 text-white shadow-xl">
-        <div className="flex flex-col space-y-4">
+      <PopoverContent className="w-72 mt-4 bg-[#000]/80 backdrop-blur-xl border border-neutral-900/30 text-white shadow-xl rounded-xl">
+        <div className="flex flex-col space-y-5">
           {/* User Info */}
-          <div className="flex items-center gap-3">
-            <Avatar className="bg-black text-white">
+          <div className="flex items-center gap-3 border-b border-neutral-800 pb-4">
+            <Avatar>
               {backendUser?.profile_picture ? (
-                <AvatarImage
-                  src={backendUser.profile_picture}
-                  alt={backendUser.display_name || "U"}
-                />
+                <AvatarImage src={backendUser.profile_picture} />
               ) : null}
               <AvatarFallback className="bg-neutral-950/30 text-white">
-                {backendUser?.display_name?.charAt(0).toUpperCase() || "U"}
+                {backendUser?.display_name?.charAt(0) || "U"}
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold">
                 {backendUser?.display_name}
               </p>
               <p className="text-xs text-zinc-400">{backendUser?.email}</p>
             </div>
           </div>
 
-          {/* Credits */}
-          <div className="text-sm text-zinc-400">
-            Credits:{" "}
-            <span className="font-semibold text-white">
-              {backendUser?.credits_remaining}
-            </span>
+          {/* Quick Navigation */}
+          <div className="flex flex-col space-y-2 text-sm">
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-white hover:text-white hover:bg-neutral-950"
+              onClick={() => {
+                router.push("/dashboard");
+                setIsPopoverOpen(false);
+              }}
+            >
+              Dashboard
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-white text-white hover:text-white hover:bg-neutral-950"
+              onClick={() => {
+                router.push("/mygallery");
+                setIsPopoverOpen(false);
+              }}
+            >
+              My Gallery
+            </Button>
+         
           </div>
 
-          {/* Purchase Button */}
+          {/* Purchase Credits */}
           <Button
             variant="outline"
-            className="w-full border-neutral-900/30 bg-neutral-950/30 hover:bg-neutral-950 text-white text-sm flex items-center justify-start gap-2"
-            onClick={() => router.push("/pricing")}
+            className="w-full border-neutral-900/30 bg-neutral-950/30 hover:bg-neutral-950 text-white  hover:text-white text-sm flex items-center justify-start gap-2"
+            onClick={() => {
+              router.push("/pricing");
+              setIsPopoverOpen(false);
+            }}
           >
-            <CreditCard size={16} /> Purchase Credits
+            <CreditCard size={16} /> Buy Credits
           </Button>
 
-          {/* Logout Button */}
+          {/* Logout */}
           <Button
-            className="w-full border mt-0 border-neutral-900/30 bg-neutral-950/30 hover:bg-neutral-950 text-white text-sm flex items-center justify-start gap-2"
-            onClick={logoutHandler}
+            className="w-full bg-red-600 hover:bg-red-700  text-white hover:text-white text-sm flex items-center justify-start gap-2"
+            onClick={async () => {
+              await logoutHandler();
+              setIsPopoverOpen(false);
+            }}
           >
             <LogOut size={16} /> Logout
           </Button>
+
+          {/* Links */}
+          <div className="border-t border-neutral-800 pt-3 text-xs text-neutral-400 flex justify-between">
+            <Link
+              href="/help"
+              onClick={() => setIsPopoverOpen(false)}
+              className="hover:text-white"
+            >
+              Help Center
+            </Link>
+            <Link
+              href="/terms"
+              onClick={() => setIsPopoverOpen(false)}
+              className="hover:text-white"
+            >
+              Terms
+            </Link>
+          </div>
         </div>
       </PopoverContent>
     </Popover>
@@ -117,11 +161,12 @@ function Sidebar() {
   return (
     <>
       {/* Header */}
-      <header className="w-full fixed top-0 z-50 backdrop-blur-lg bg-[#000000cc] border-b border-neutral-800">
+      <header className="w-full fixed top-0 z-50 backdrop-blur-lg bg-[#000000cc] border-b border-neutral-900/30">
         <PageTransitionWrapper>
           <div className="max-w-[90%] w-[1250px] mx-auto py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center">
-              <span className="text-xl font-bold text-white">AvatarSnap</span>
+            <Link href="/" className="flex items-center gap-4">
+              <Image src={logo} alt="Logo" className="w-9 h-9 rounded-2xl" />
+              <span className="font-medium"> PFP AVATARS</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -130,23 +175,35 @@ function Sidebar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-neutral-400 hover:text-white font-medium transition-colors"
+                  className="text-neutral-300 hover:text-white font-mono transition-colors"
                 >
                   {item.name}
                 </Link>
               ))}
               <Link
                 href="/dashboard"
-                className="text-neutral-400 hover:text-white font-medium transition-colors"
+                className="text-neutral-300 hover:text-white font-mono  transition-colors"
               >
                 Dashboard
               </Link>
             </nav>
 
             {/* Right-side */}
-            <div className="hidden lg:block">
+            <div className="hidden lg:flex justify-between gap-4">
               {user && backendUser ? (
-                renderUserPopover()
+                <>
+                  <Button
+                    variant="outline"
+                    className="w- border-[#ffedc9]/30 rounded-full bg-neutral-950/30 hover:bg-neutral-950/30 text-white hover:text-white text-sm flex items-center justify-start gap-2"
+                    onClick={() => router.push("/pricing")}
+                  >
+                    Credits{" "}
+                    <span className="text-[#ffedc9]">
+                      {backendUser?.credits_remaining}
+                    </span>
+                  </Button>
+                  {renderUserPopover()}
+                </>
               ) : (
                 <Link href="/upload">
                   <Button className="bg-white text-black hover:bg-neutral-300 rounded-full px-6 py-2.5">

@@ -72,7 +72,11 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
               </div>
 
               {error && (
-                <div className="text-red-500 text-sm text-center">{error}</div>
+                <div className="text-red-500 text-sm text-center">
+                  {error == "Firebase: Error (auth/invalid-credential)."
+                    ? "Email Or Password Is Incorrect"
+                    : error}
+                </div>
               )}
 
               <div className="grid gap-3">
