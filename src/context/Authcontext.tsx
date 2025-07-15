@@ -55,7 +55,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       const data = await res.json();
       setBackendUser(data.user);
-      console.log("✅ Refreshed backend user:", data.user);
     } catch (err) {
       console.error("❌ Failed to fetch backend user:", err);
       setBackendUser(null);

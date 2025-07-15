@@ -19,9 +19,9 @@ export default function Home() {
         <div className="relative z-20 w-full h-full overflow-hidden">
           <Hero />
           <Features />
-          <Testimonials /> <Pricing />
+          <Testimonials />
+          <Pricing />
           <Footer />
-          <HomeSection />
         </div>
       </main>
     </PageTransitionWrapper>
