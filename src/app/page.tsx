@@ -11,7 +11,7 @@ import Testimonials from "@/components/Testimonial";
 import Videointro from "@/components/Videointro";
 import Features from "./features/page";
 import { AuthProvider } from "@/context/Authcontext";
-
+import HomeSection from "../components/Framercomp";
 export default function Home() {
   return (
     <PageTransitionWrapper>
@@ -21,6 +21,7 @@ export default function Home() {
           <Features />
           <Testimonials /> <Pricing />
           <Footer />
+          <HomeSection />
         </div>
       </main>
     </PageTransitionWrapper>
