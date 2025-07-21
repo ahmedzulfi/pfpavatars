@@ -41,9 +41,9 @@ const Hero: React.FC = () => {
     <section className="relative w-full min-h-[95vh]  flex items-center justify-center overflow-hidden">
       {/* Grid background */}
       <div className="opacity-[1%] z-1 absolute inset-0 [background-size:40px_40px] [background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)] dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]" />
-      <Coolbg id="KQQjnJrWP3cJMjT2Q7UA" />
+      <Coolbg id="rU2c01mhL2Uo3EQelrR7" />
       {
-        //rU2c01mhL2Uo3EQelrR7
+        //KQQjnJrWP3cJMjT2Q7UA
       }
       <div className="absolute top-0 left-0 w-[140px] h-[50px] rounded-full bg-gradient-to-tr from-[#ffedc9]/90 to-transparent blur-3xl z-0" />
       <div className="absolute bottom-0 right-0 w-[140px] h-[50px] rounded-full bg-gradient-to-bl from-[#ffedc9] via-[#facc15]/30 to-transparent blur-3xl z-0" />
